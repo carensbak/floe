@@ -2,6 +2,7 @@
   <Folder Name="/SolutionItems/">
     <File Path=".editorconfig" />
     <File Path=".gitignore" />
+    <File Path="Directory.Packages.props" />
   </Folder>
   <Project Path="src/Floe.Cli/Floe.Cli.csproj" />
   <Project Path="src/Floe.Core/Floe.Core.csproj" />
