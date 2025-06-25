@@ -5,4 +5,7 @@
   <ItemGroup>
     <PackageReference Include="Cocona" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../Floe.Core/Floe.Core.csproj" />
+  </ItemGroup>
 </Project>
