@@ -216,6 +216,12 @@ dotnet_diagnostic.CA1062.severity = silent
 # IDE0058: Expression value is never used
 dotnet_diagnostic.IDE0058.severity = silent
 
+# S2325: Methods and properties that don't access instance data should be static
+dotnet_diagnostic.S2325.severity = suggestion
+
+# CA1515: Consider making public types internal
+dotnet_diagnostic.CA1515.severity = suggestion
+
 [*.{cs,vb}]
 
 # Naming rules
@@ -460,7 +466,7 @@ dotnet_diagnostic.CA1724.severity = suggestion
 dotnet_diagnostic.CA1727.severity = error
 dotnet_diagnostic.CA1806.severity = error
 dotnet_diagnostic.CA1821.severity = error
-dotnet_diagnostic.CA1822.severity = error
+dotnet_diagnostic.CA1822.severity = suggestion
 dotnet_diagnostic.CA1826.severity = error
 dotnet_diagnostic.CA1827.severity = error
 dotnet_diagnostic.CA1828.severity = error

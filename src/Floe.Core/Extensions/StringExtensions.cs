@@ -11,27 +11,27 @@ public static partial class StringExtensions
 
     public static bool IsMasterBranch(this string branch)
     {
-        return branch.Contains(Git.DefaultBranchNames.Master);
+        return branch.Contains(Git.BranchNames.Master);
     }
 
     public static bool IsDevBranch(this string branch)
     {
-        return branch.Contains(Git.DefaultBranchNames.Dev);
+        return branch.Contains(Git.BranchNames.Dev);
     }
 
     public static bool IsFeatureBranch(this string branch)
     {
-        return branch.Contains(Git.DefaultBranchNames.Feature);
+        return branch.Contains(Git.BranchNames.Feature);
     }
 
     public static bool IsFixBranch(this string branch)
     {
-        return branch.Contains(Git.DefaultBranchNames.Fix);
+        return branch.Contains(Git.BranchNames.Fix);
     }
 
     public static bool IsReleaseBranch(this string branch)
     {
-        return branch.Contains(Git.DefaultBranchNames.Release);
+        return branch.Contains(Git.BranchNames.Release);
     }
 
     public static bool ContainsSemver(this string branch)
