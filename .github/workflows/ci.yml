@@ -2,40 +2,47 @@ name: CI
 
 on:
   workflow_call:
+    outputs:
+      semver:
+        value: ${{ jobs.gv-versioning.outputs.gv-semver }}
 
 env:
   NET_SDK_VERSION: "9.0.301"
+  BUILD_CONFIGURATION: "Release"
 
 jobs:
-  install-and-restore:
+  build:
     runs-on: "ubuntu-latest"
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Install .NET SDK
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: ${{ env.NET_SDK_VERSION }}
 
-      - name: Restore
-        run: dotnet restore
-
-  build:
-    runs-on: "ubuntu-latest"
-    needs: [install-and-restore]
-    steps:
       - name: Build
-        run: dotnet build --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore
+        run: dotnet build Floe.slnx --configuration ${{ env.BUILD_CONFIGURATION }}
 
   test:
     runs-on: "ubuntu-latest"
-    needs: [install-and-restore]
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.NET_SDK_VERSION }}
+
       - name: Test
-        run: dotnet test --no-restore --verbosity normal
+        run: dotnet test Floe.slnx --no-restore --verbosity normal
 
   gv-versioning:
     runs-on: "ubuntu-latest"
     outputs:
-      gv-semver: ${{ steps.calculate_semver.outputs.semVer }}
+      gv-semver: ${{ steps.calculate_semver.outputs.majorMinorPatch }}
 
     steps:
       - name: Checkout

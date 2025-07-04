@@ -2,16 +2,40 @@ name: CD
 
 on:
   workflow_call:
+    inputs:
+      semver:
+        required: true
+        type: string
+
+    secrets:
+      NUGET_API_KEY:
+        required: true
 
 env:
-  RELEASE_NAME: "floe"
+  BUILD_CONFIGURATION: "Release"
+  NET_SDK_VERSION: "9.0.301"
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Install .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.NET_SDK_VERSION }}
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Pack
-        run: dotnet pack --configuration ${{ env.BUILD_CONFIGURATION }} --no-build ./nupkg
+        run: |
+          dotnet pack Floe.slnx \
+            --configuration ${{ env.BUILD_CONFIGURATION }} \
+            -p:Version=${{ inputs.semver }} \
+            --output ./nupkg
 
       - name: Publish to NuGet
-        run: dotnet nuget push ./nupkg/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+        run: |
+          dotnet nuget push ./nupkg/*.nupkg \
+            --source https://api.nuget.org/v3/index.json \
+            --api-key ${{ secrets.NUGET_API_KEY }}
