@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  workflow_call:
+
+env:
+  NET_SDK_VERSION: "9.0.301"
+
+jobs:
+  install-and-restore:
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: Install .NET SDK
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{ env.NET_SDK_VERSION }}
+
+      - name: Restore
+        run: dotnet restore
+
+  build:
+    runs-on: "ubuntu-latest"
+    needs: [install-and-restore]
+    steps:
+      - name: Build
+        run: dotnet build --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore
+
+  test:
+    runs-on: "ubuntu-latest"
+    needs: [install-and-restore]
+    steps:
+      - name: Test
+        run: dotnet test --no-restore --verbosity normal
+
+  gv-versioning:
+    runs-on: "ubuntu-latest"
+    outputs:
+      gv-semver: ${{ steps.calculate_semver.outputs.semVer }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v4.0.0
+        with:
+          versionSpec: "6.3.x"
+
+      - name: Calculate SemVer
+        id: calculate_semver
+        uses: gittools/actions/gitversion/execute@v4.0.0

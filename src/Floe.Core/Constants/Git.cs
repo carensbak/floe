@@ -1,18 +1,22 @@
-namespace Floe.Core.Constants;
+namespace Floe.Core;
 
-public static class Git
+public static partial class Git
 {
     public const string BaseName = "git";
     public const string Head = "HEAD";
     public const string Origin = "origin";
-    public const string Push = "push";
-    public const string Pull = "pull";
-    public const string Merge = "merge";
-    public const string Branch = "branch";
-    public const string Fetch = "fetch";
-    public const string Tag = "tag";
 
-    public static class DefaultBranchNames
+    public static class CommandNames
+    {
+        public const string Push = "push";
+        public const string Pull = "pull";
+        public const string Merge = "merge";
+        public const string Branch = "branch";
+        public const string Fetch = "fetch";
+        public const string Tag = "tag";
+    }
+
+    public static class BranchNames
     {
         public const string Master = "master";
         public const string Dev = "dev";
@@ -40,5 +44,6 @@ public static class Git
     public static class FetchFlags
     {
         public const string All = "--all";
+        public const string Tags = "--tags";
     }
 }

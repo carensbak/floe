@@ -1,0 +1,17 @@
+on:
+  push:
+    branches:
+      - master
+
+env:
+  BUILD_CONFIGURATION: "Release"
+
+jobs:
+  CI:
+    name: CI
+    uses: ./.github/workflows/ci.yml
+
+  CD:
+    name: CD
+    needs: CI
+    uses: ./.github/workflows/cd.yml
