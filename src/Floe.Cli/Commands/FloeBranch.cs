@@ -4,7 +4,7 @@ using Floe.Core;
 
 namespace Floe.Cli.Commands;
 
-public class FloeBranch
+public sealed class FloeBranch
 {
     public void Branch(
         [Argument] string branch,
