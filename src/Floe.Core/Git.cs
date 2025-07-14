@@ -9,45 +9,21 @@ public static partial class Git
     public static string CurrentBranch => GetCurrentBranch();
     public static List<string> LocalBranches => GetLocalBranches();
 
-    public static FetchBuilder Fetch()
-    {
-        return new FetchBuilder();
-    }
+    public static BranchBuilder Branch() => new BranchBuilder();
+    public static BranchBuilder Branch(string branch) => new BranchBuilder(branch);
 
-    public static BranchBuilder Branch()
-    {
-        return new BranchBuilder();
-    }
+    public static CheckoutBuilder Checkout(string refname) => new CheckoutBuilder(refname);
 
-    public static PushBuilder Push()
-    {
-        return new PushBuilder();
-    }
+    public static FetchBuilder Fetch() => new FetchBuilder();
 
-    public static PushBuilder Push(string refname)
-    {
-        return new PushBuilder(refname);
-    }
+    public static PushBuilder Push() => new PushBuilder();
+    public static PushBuilder Push(string refname) => new PushBuilder(refname);
 
-    public static TagBuilder Tag()
-    {
-        return new TagBuilder();
-    }
+    public static TagBuilder Tag() => new TagBuilder();
+    public static TagBuilder Tag(string tag) => new TagBuilder(tag);
 
-    public static TagBuilder Tag(string tag)
-    {
-        return new TagBuilder(tag);
-    }
-
-    public static MergeBuilder Merge(string branch)
-    {
-        return Merge(branch, CurrentBranch);
-    }
-
-    public static MergeBuilder Merge(string mergeBranch, string targetBranch)
-    {
-        return new MergeBuilder(mergeBranch, targetBranch);
-    }
+    public static MergeBuilder Merge(string branch) => Merge(branch, CurrentBranch);
+    public static MergeBuilder Merge(string mergeBranch, string targetBranch) => new MergeBuilder(mergeBranch, targetBranch);
 
 
     private static string GetCurrentBranch()
