@@ -9,10 +9,12 @@ public static partial class Git
     public static string CurrentBranch => GetCurrentBranch();
     public static List<string> LocalBranches => GetLocalBranches();
 
-    public static FetchBuilder Fetch() => new FetchBuilder();
-
     public static BranchBuilder Branch() => new BranchBuilder();
     public static BranchBuilder Branch(string branch) => new BranchBuilder(branch);
+
+    public static CheckoutBuilder Checkout(string refname) => new CheckoutBuilder(refname);
+
+    public static FetchBuilder Fetch() => new FetchBuilder();
 
     public static PushBuilder Push() => new PushBuilder();
     public static PushBuilder Push(string refname) => new PushBuilder(refname);
