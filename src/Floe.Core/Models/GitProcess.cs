@@ -32,6 +32,8 @@ public abstract class GitProcess : IGitProcess
         using var process = Execute(command);
 
         process.WaitForExit();
+
+        Console.WriteLine(process.StandardOutput.ReadToEnd());
     }
 
     public abstract Task ExecuteAsync();
@@ -40,5 +42,7 @@ public abstract class GitProcess : IGitProcess
         using var process = Execute(command);
 
         await process.WaitForExitAsync();
+
+        Console.WriteLine(process.StandardOutput.ReadToEndAsync());
     }
 }
