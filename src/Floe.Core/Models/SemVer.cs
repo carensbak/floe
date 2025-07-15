@@ -1,3 +1,5 @@
+using Floe.Core.Extensions;
+
 namespace Floe.Core.Models;
 
 public class SemVer : IComparable<SemVer>
@@ -29,7 +31,7 @@ public class SemVer : IComparable<SemVer>
             Patch = Int32.Parse(semverArray[2])
         };
 
-        if (!string.IsNullOrWhiteSpace(semverSuffix))
+        if (!semverSuffix.IsNullOrWhiteSpace())
             semver.Suffix = semverSuffix;
 
         return semver;
@@ -59,10 +61,10 @@ public class SemVer : IComparable<SemVer>
             return result;
 
         //handle suffix - No suffix is considered to be a later release.
-        if (string.IsNullOrWhiteSpace(Suffix) && !string.IsNullOrWhiteSpace(other.Suffix))
+        if (Suffix.IsNullOrWhiteSpace() && !other.Suffix.IsNullOrWhiteSpace())
             return 1;
 
-        if (!string.IsNullOrWhiteSpace(Suffix) && string.IsNullOrWhiteSpace(other.Suffix))
+        if (!Suffix.IsNullOrWhiteSpace() && other.Suffix.IsNullOrWhiteSpace())
             return -1;
 
         return string.Compare(Suffix, other.Suffix, StringComparison.Ordinal);
@@ -78,7 +80,7 @@ public class SemVer : IComparable<SemVer>
         var latest = includePreReleases
             ? allTagsSemver.Max()
             : allTagsSemver
-                .Where(t => string.IsNullOrWhiteSpace(t.Suffix))
+                .Where(t => t.Suffix.IsNullOrWhiteSpace())
                 .DefaultIfEmpty(null)
                 .Max();
 

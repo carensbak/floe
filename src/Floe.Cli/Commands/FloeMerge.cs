@@ -15,7 +15,7 @@ public sealed class FloeMerge
 
         var currentBranch = Git.CurrentBranch;
 
-        if (string.IsNullOrWhiteSpace(mergeMessage))
+        if (mergeMessage.IsNullOrWhiteSpace())
             mergeMessage = $"merge: '{mergingBranch}' -> '{currentBranch}'";
 
         Git.Merge(mergingBranch)
@@ -29,7 +29,7 @@ public sealed class FloeMerge
         if (mergingBranch.ContainsSemver())
         {
             var semver = mergingBranch.TryGetSemver();
-            if (!string.IsNullOrWhiteSpace(semver))
+            if (!semver.IsNullOrWhiteSpace())
             {
                 Git.Tag(semver)
                     .PushTag(semver)
