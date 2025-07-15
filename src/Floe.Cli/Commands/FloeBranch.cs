@@ -4,22 +4,25 @@ namespace Floe.Cli.Commands;
 
 internal static partial class Commands
 {
-    public static void Branch(string branch, bool? switchToBranch = null, bool? pushToRemote = null)
+    internal static class Branch
     {
-        Git.Branch(branch)
-            .ExecuteAndFinish();
-
-        if (pushToRemote ?? true)
+        public static void Create(string branch, bool? switchToBranch = null, bool? pushToRemote = null)
         {
-            Git.Push()
-                .SetOriginUpstream(branch)
+            Git.Branch(branch)
                 .ExecuteAndFinish();
-        }
 
-        if (switchToBranch ?? true)
-        {
-            Git.Checkout(branch)
-                .ExecuteAndFinish();
+            if (pushToRemote ?? true)
+            {
+                Git.Push()
+                    .SetOriginUpstream(branch)
+                    .ExecuteAndFinish();
+            }
+
+            if (switchToBranch ?? true)
+            {
+                Git.Checkout(branch)
+                    .ExecuteAndFinish();
+            }
         }
     }
 }
