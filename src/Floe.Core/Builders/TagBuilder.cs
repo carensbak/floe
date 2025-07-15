@@ -1,6 +1,7 @@
 using System.Diagnostics;
 
 using Floe.Core.Extensions;
+using Floe.Core.Models;
 
 namespace Floe.Core.Builders;
 

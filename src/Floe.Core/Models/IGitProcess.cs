@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-namespace Floe.Core;
+namespace Floe.Core.Models;
 
 public interface IGitProcess
 {

@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using System.Text;
 
-namespace Floe.Core;
+namespace Floe.Core.Models;
 
 public abstract class GitProcess : IGitProcess
 {

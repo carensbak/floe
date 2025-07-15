@@ -1,4 +1,4 @@
-namespace Floe.Core;
+namespace Floe.Core.Models;
 
 public static partial class Git
 {

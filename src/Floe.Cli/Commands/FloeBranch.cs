@@ -1,6 +1,6 @@
 using Cocona;
 
-using Floe.Core;
+using Floe.Core.Models;
 
 namespace Floe.Cli.Commands;
 

@@ -2,7 +2,7 @@ using Floe.Core.Builders;
 using Floe.Core.Enums;
 using Floe.Core.Extensions;
 
-namespace Floe.Core;
+namespace Floe.Core.Models;
 
 public static partial class Git
 {
@@ -50,5 +50,19 @@ public static partial class Git
         process.WaitForExitAsync();
 
         return branches;
+    }
+
+    public static List<string> GetAllTags()
+    {
+        var process = Git.Fetch()
+            .Tags()
+            .Execute();
+
+        process.Start();
+
+        var tags = process.StdOutToList();
+        process.WaitForExitAsync();
+
+        return tags;
     }
 }
