@@ -1,35 +1,33 @@
-using Cocona;
-
 using Floe.Core.Extensions;
-
-using Git = Floe.Core.Git;
+using Floe.Core.Models;
 
 namespace Floe.Cli.Commands;
 
-public sealed class FloeMerge
+internal static partial class Commands
 {
-    public void Merge([Argument] string mergingBranch, [Option(Description = "Merge message")] string? mergeMessage)
+    public static void Merge(string mergingBranch, string? targetBranch = null, string? mergeMessage = null)
     {
         Git.Fetch()
             .ExecuteAndFinish();
 
-        var currentBranch = Git.CurrentBranch;
+        if (targetBranch.IsNullOrWhiteSpace())
+            targetBranch = Git.CurrentBranch;
 
-        if (string.IsNullOrWhiteSpace(mergeMessage))
-            mergeMessage = $"merge: '{mergingBranch}' -> '{currentBranch}'";
+        if (mergeMessage.IsNullOrWhiteSpace())
+            mergeMessage = $"merge: '{mergingBranch}' -> '{targetBranch}'";
 
         Git.Merge(mergingBranch)
             .Message(mergeMessage!)
             .NoFastForward()
             .ExecuteAndFinish();
 
-        if (!(mergingBranch.IsFixBranch() || mergingBranch.IsReleaseBranch()) && currentBranch.IsMasterBranch())
+        if (!(mergingBranch.IsFixBranch() || mergingBranch.IsReleaseBranch()) && targetBranch.IsMasterBranch())
             return;
 
         if (mergingBranch.ContainsSemver())
         {
             var semver = mergingBranch.TryGetSemver();
-            if (!string.IsNullOrWhiteSpace(semver))
+            if (!semver.IsNullOrWhiteSpace())
             {
                 Git.Tag(semver)
                     .PushTag(semver)

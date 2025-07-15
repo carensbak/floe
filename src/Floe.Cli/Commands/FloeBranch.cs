@@ -1,15 +1,10 @@
-using Cocona;
-
 using Floe.Core.Models;
 
 namespace Floe.Cli.Commands;
 
-public sealed class FloeBranch
+internal static partial class Commands
 {
-    public void Branch(
-        [Argument] string branch,
-        [Option(Description = "Switch to the created branch?")] bool? switchToBranch,
-        [Option(Description = "Push branch to remote?")] bool? pushToRemote)
+    public static void Branch(string branch, bool? switchToBranch = null, bool? pushToRemote = null)
     {
         Git.Branch(branch)
             .ExecuteAndFinish();
