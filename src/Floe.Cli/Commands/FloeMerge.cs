@@ -5,7 +5,7 @@ namespace Floe.Cli.Commands;
 
 internal static partial class Commands
 {
-    public static void Merge(string mergingBranch, string? targetBranch = null, string? mergeMessage = null)
+    public static void Merge(string mergingBranch, string? targetBranch = null, string? mergeMessage = null, bool? deleteBranch = null)
     {
         Git.Fetch()
             .ExecuteAndFinish();
@@ -17,12 +17,18 @@ internal static partial class Commands
             mergeMessage = $"merge: '{mergingBranch}' -> '{targetBranch}'";
 
         Git.Merge(mergingBranch)
+            .Into(targetBranch)
             .Message(mergeMessage!)
             .NoFastForward()
             .ExecuteAndFinish();
 
         if (!(mergingBranch.IsFixBranch() || mergingBranch.IsReleaseBranch()) && targetBranch.IsMasterBranch())
+        {
+            if (deleteBranch ?? true)
+                Commands.Branch.Delete(mergingBranch, deleteAtRemote: true);
+
             return;
+        }
 
         if (mergingBranch.ContainsSemver())
         {
@@ -40,5 +46,10 @@ internal static partial class Commands
             .NoFastForward()
             .Message($"merge: '{mergingBranch}' -> 'dev'")
             .ExecuteAndFinish();
+
+        if (deleteBranch ?? true)
+            Commands.Branch.Delete(mergingBranch, deleteAtRemote: true);
+
+        return;
     }
 }
