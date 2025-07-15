@@ -9,7 +9,8 @@ var app = builder.Build();
 app.AddCommand("merge", (
     [Argument] string mergingBranch,
     [Option(Description = "Target branch")] string? targetBranch,
-    [Option(Description = "Merge message")] string? mergeMessage) => Commands.Merge(mergingBranch, targetBranch, mergeMessage));
+    [Option(Description = "Merge message")] string? mergeMessage,
+    [Option(Description = "Delete the branch after merging? - Default = true")] bool? deleteBranch) => Commands.Merge(mergingBranch, targetBranch, mergeMessage, deleteBranch));
 
 app.AddSubCommand("branch", sc =>
 {
