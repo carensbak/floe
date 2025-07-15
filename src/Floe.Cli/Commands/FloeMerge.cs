@@ -5,22 +5,23 @@ namespace Floe.Cli.Commands;
 
 internal static partial class Commands
 {
-    public void Merge([Argument] string mergingBranch, [Option(Description = "Merge message")] string? mergeMessage)
+    public static void Merge(string mergingBranch, string? targetBranch = null, string? mergeMessage = null)
     {
         Git.Fetch()
             .ExecuteAndFinish();
 
-        var currentBranch = Git.CurrentBranch;
+        if (targetBranch.IsNullOrWhiteSpace())
+            targetBranch = Git.CurrentBranch;
 
         if (mergeMessage.IsNullOrWhiteSpace())
-            mergeMessage = $"merge: '{mergingBranch}' -> '{currentBranch}'";
+            mergeMessage = $"merge: '{mergingBranch}' -> '{targetBranch}'";
 
         Git.Merge(mergingBranch)
             .Message(mergeMessage!)
             .NoFastForward()
             .ExecuteAndFinish();
 
-        if (!(mergingBranch.IsFixBranch() || mergingBranch.IsReleaseBranch()) && currentBranch.IsMasterBranch())
+        if (!(mergingBranch.IsFixBranch() || mergingBranch.IsReleaseBranch()) && targetBranch.IsMasterBranch())
             return;
 
         if (mergingBranch.ContainsSemver())
