@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
 
 using Floe.Core.Models;
@@ -23,4 +24,6 @@ public static partial class StringExtensions
             ? match.Value
             : null;
     }
+
+    public static bool IsNullOrWhiteSpace([NotNullWhen(false)] this string? str) => string.IsNullOrWhiteSpace(str);
 }
