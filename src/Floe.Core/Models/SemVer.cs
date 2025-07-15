@@ -2,9 +2,9 @@ namespace Floe.Core.Models;
 
 public class SemVer : IComparable<SemVer>
 {
-    public required int Major { get; init; }
-    public required int Minor { get; init; }
-    public required int Patch { get; init; }
+    public required int Major { get; set; }
+    public required int Minor { get; set; }
+    public required int Patch { get; set; }
     public string? Suffix { get; set; }
 
     public override string ToString()
