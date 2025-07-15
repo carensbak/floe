@@ -10,6 +10,12 @@
         <NoWarn>$(NoWarn);1591</NoWarn>
         <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
         <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+
+        <Authors>Christian Arensbak</Authors>
+        <RepositoryUrl>https://github.com/carensbak/floe</RepositoryUrl>
+        <Description>A dotnet tool that simplifies the Git Flow branching strategy.</Description>
+        <PackAsTool>true</PackAsTool>
+        <ToolCommandName>floe</ToolCommandName>
     </PropertyGroup>
 
     <ItemGroup Condition="'$(MSBuildProjectExtension)' != '.dcproj'">
