@@ -1,12 +1,9 @@
-using Cocona;
-
 using Floe.Core.Extensions;
-
-using Git = Floe.Core.Git;
+using Floe.Core.Models;
 
 namespace Floe.Cli.Commands;
 
-public sealed class FloeMerge
+internal static partial class Commands
 {
     public void Merge([Argument] string mergingBranch, [Option(Description = "Merge message")] string? mergeMessage)
     {

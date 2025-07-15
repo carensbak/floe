@@ -1,10 +1,8 @@
-using Cocona;
-
 using Floe.Core.Models;
 
 namespace Floe.Cli.Commands;
 
-public sealed class FloeBranch
+internal static partial class Commands
 {
     public void Branch(
         [Argument] string branch,
