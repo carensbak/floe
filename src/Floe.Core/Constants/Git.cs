@@ -6,7 +6,7 @@ public static partial class Git
     public const string Head = "HEAD";
     public const string Origin = "origin";
 
-    public static class CommandNames
+    public static class Commands
     {
         public const string Push = "push";
         public const string Pull = "pull";
@@ -17,7 +17,7 @@ public static partial class Git
         public const string Checkout = "checkout";
     }
 
-    public static class BranchNames
+    public static class Branches
     {
         public const string Master = "master";
         public const string Dev = "dev";

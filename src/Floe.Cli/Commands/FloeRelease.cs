@@ -20,7 +20,7 @@ internal static partial class Commands
             var bumpedVersion = latestVersion.ToString();
 
             Commands.Branch.Create(
-                branch: $"{Git.BranchNames.Release}/{bumpedVersion}",
+                branch: $"{Git.Branches.Release}/{bumpedVersion}",
                 switchToBranch: true,
                 pushToRemote: true);
         }
@@ -32,7 +32,7 @@ internal static partial class Commands
             var bumpedVersion = latestVersion.ToString();
 
             Commands.Branch.Create(
-                branch: $"{Git.BranchNames.Release}/{bumpedVersion}",
+                branch: $"{Git.Branches.Release}/{bumpedVersion}",
                 switchToBranch: true,
                 pushToRemote: true);
         }
@@ -44,7 +44,7 @@ internal static partial class Commands
             var bumpedVersion = latestVersion.ToString();
 
             Commands.Branch.Create(
-                branch: $"{Git.BranchNames.Release}/{bumpedVersion}",
+                branch: $"{Git.Branches.Release}/{bumpedVersion}",
                 switchToBranch: true,
                 pushToRemote: true);
         }

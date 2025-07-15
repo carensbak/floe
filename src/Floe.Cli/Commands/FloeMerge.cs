@@ -42,7 +42,7 @@ internal static partial class Commands
         }
 
         Git.Merge(mergingBranch)
-            .Into(Git.BranchNames.Dev)
+            .Into(Git.Branches.Dev)
             .NoFastForward()
             .Message($"merge: '{mergingBranch}' -> 'dev'")
             .ExecuteAndFinish();

@@ -22,7 +22,7 @@ public class TagBuilder : GitProcess
         return this;
     }
 
-    public override Process Execute() => base.Execute(Git.CommandNames.Tag);
-    public override void ExecuteAndFinish() => base.ExecuteAndFinish(Git.CommandNames.Tag);
-    public override Task ExecuteAsync() => base.ExecuteAsync(Git.CommandNames.Tag);
+    public override Process Execute() => base.Execute(Git.Commands.Tag);
+    public override void ExecuteAndFinish() => base.ExecuteAndFinish(Git.Commands.Tag);
+    public override Task ExecuteAsync() => base.ExecuteAsync(Git.Commands.Tag);
 }

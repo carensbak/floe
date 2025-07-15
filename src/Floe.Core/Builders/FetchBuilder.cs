@@ -21,7 +21,7 @@ public class FetchBuilder : GitProcess
         return this;
     }
 
-    public override Process Execute() => base.Execute(Git.CommandNames.Fetch);
-    public override void ExecuteAndFinish() => base.ExecuteAndFinish(Git.CommandNames.Fetch);
-    public override async Task ExecuteAsync() => await base.ExecuteAsync(Git.CommandNames.Fetch);
+    public override Process Execute() => base.Execute(Git.Commands.Fetch);
+    public override void ExecuteAndFinish() => base.ExecuteAndFinish(Git.Commands.Fetch);
+    public override async Task ExecuteAsync() => await base.ExecuteAsync(Git.Commands.Fetch);
 }
