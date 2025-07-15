@@ -437,7 +437,11 @@ dotnet_diagnostic.CA1021.severity = error
 dotnet_diagnostic.CA1024.severity = error
 dotnet_diagnostic.CA1027.severity = error
 dotnet_diagnostic.CA1028.severity = error
-dotnet_diagnostic.CA1036.severity = error
+#Type should define operator(s) '==, !=, <, <=, >, >=' and Equals since it implements IComparable
+dotnet_diagnostic.CA1036.severity = Suggestion
+dotnet_diagnostic.S1186.severity = Suggestion
+dotnet_diagnostic.S1210.severity = Suggestion
+
 dotnet_diagnostic.CA1041.severity = error
 dotnet_diagnostic.CA1050.severity = error
 dotnet_diagnostic.CA1051.severity = error

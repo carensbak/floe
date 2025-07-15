@@ -23,7 +23,7 @@ public static class ProcessExtensions
     public static string GetStdOutFirstLine(this Process process)
     {
         var item = "";
-        while (!process.StandardOutput.EndOfStream && string.IsNullOrWhiteSpace(item))
+        while (!process.StandardOutput.EndOfStream && item.IsNullOrWhiteSpace())
         {
             item = process.StandardOutput.ReadLine()?.Trim() ?? "";
         }

@@ -1,3 +1,5 @@
+using Floe.Core.Models;
+
 namespace Floe.Core.Enums;
 
 public enum BranchFormat

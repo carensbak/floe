@@ -1,4 +1,4 @@
-namespace Floe.Core;
+namespace Floe.Core.Models;
 
 public static partial class Git
 {
@@ -14,6 +14,7 @@ public static partial class Git
         public const string Branch = "branch";
         public const string Fetch = "fetch";
         public const string Tag = "tag";
+        public const string Checkout = "checkout";
     }
 
     public static class BranchNames
