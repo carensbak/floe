@@ -36,7 +36,7 @@ public class BranchBuilder : GitProcess
         return this;
     }
 
-    public override Process Execute() => base.Execute(Git.CommandNames.Branch);
-    public override void ExecuteAndFinish() => base.ExecuteAndFinish(Git.CommandNames.Branch);
-    public override Task ExecuteAsync() => base.ExecuteAsync(Git.CommandNames.Branch);
+    public override Process Execute() => base.Execute(Git.Commands.Branch, ArgsBuilder.Build());
+    public override void ExecuteAndFinish() => base.ExecuteAndFinish(Git.Commands.Branch, ArgsBuilder.Build());
+    public override Task ExecuteAsync() => base.ExecuteAsync(Git.Commands.Branch, ArgsBuilder.Build());
 }

@@ -41,7 +41,7 @@ public class PushBuilder : GitProcess
         return this;
     }
 
-    public override Process Execute() => base.Execute(Git.Commands.Push);
-    public override void ExecuteAndFinish() => base.ExecuteAndFinish(Git.Commands.Push);
-    public override Task ExecuteAsync() => base.ExecuteAsync(Git.Commands.Push);
+    public override Process Execute() => base.Execute(Git.Commands.Push, ArgsBuilder.Build());
+    public override void ExecuteAndFinish() => base.ExecuteAndFinish(Git.Commands.Push, ArgsBuilder.Build());
+    public override Task ExecuteAsync() => base.ExecuteAsync(Git.Commands.Push, ArgsBuilder.Build());
 }

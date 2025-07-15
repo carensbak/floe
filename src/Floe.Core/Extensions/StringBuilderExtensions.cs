@@ -13,4 +13,6 @@ public static class StringBuilderExtensions
 
         return builder;
     }
+
+    public static string Build(this StringBuilder builder) => builder.ToString();
 }

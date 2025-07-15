@@ -33,7 +33,7 @@ public class MergeBuilder : GitProcess
         return this;
     }
 
-    public override Process Execute() => base.Execute(Git.Commands.Merge);
-    public override void ExecuteAndFinish() => base.ExecuteAndFinish(Git.Commands.Merge);
-    public override Task ExecuteAsync() => base.ExecuteAsync(Git.Commands.Merge);
+    public override Process Execute() => base.Execute(Git.Commands.Merge, ArgsBuilder.Build());
+    public override void ExecuteAndFinish() => base.ExecuteAndFinish(Git.Commands.Merge, ArgsBuilder.Build());
+    public override Task ExecuteAsync() => base.ExecuteAsync(Git.Commands.Merge, ArgsBuilder.Build());
 }

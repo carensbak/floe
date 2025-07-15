@@ -12,7 +12,7 @@ public class CheckoutBuilder : GitProcess
         ArgsBuilder.AppendArgument(refname);
     }
 
-    public override Process Execute() => base.Execute(Git.Commands.Checkout);
-    public override void ExecuteAndFinish() => base.ExecuteAndFinish(Git.Commands.Checkout);
-    public override Task ExecuteAsync() => base.ExecuteAsync(Git.Commands.Checkout);
+    public override Process Execute() => base.Execute(Git.Commands.Checkout, ArgsBuilder.Build());
+    public override void ExecuteAndFinish() => base.ExecuteAndFinish(Git.Commands.Checkout, ArgsBuilder.Build());
+    public override Task ExecuteAsync() => base.ExecuteAsync(Git.Commands.Checkout, ArgsBuilder.Build());
 }
