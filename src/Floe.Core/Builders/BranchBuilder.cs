@@ -15,6 +15,13 @@ public class BranchBuilder : GitProcess
         ArgsBuilder.AppendArgument(branch);
     }
 
+    public BranchBuilder Delete(string branch)
+    {
+        ArgsBuilder.AppendArgument($"{Git.BranchFlags.Delete} {branch}");
+
+        return this;
+    }
+
     public BranchBuilder ShowCurrent()
     {
         ArgsBuilder.AppendArgument(Git.BranchFlags.ShowCurrent);
