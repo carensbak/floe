@@ -14,9 +14,14 @@ app.AddCommand("merge", (
 app.AddSubCommand("branch", sc =>
 {
     sc.AddCommand("create", (
-    [Argument] string branch,
-    [Option(Description = "Switch to the created branch?")] bool? switchToBranch,
-    [Option(Description = "Push branch to remote?")] bool? pushToRemote) => Commands.Branch.Create(branch, switchToBranch, pushToRemote));
+        [Argument] string branch,
+        [Option(Description = "Switch to the created branch?")] bool? switchToBranch,
+        [Option(Description = "Push branch to remote?")] bool? pushToRemote) => Commands.Branch.Create(branch, switchToBranch, pushToRemote));
+
+    sc.AddCommand("delete", (
+        [Argument] string branch,
+        [Option(Description = "Delete branch at remote?")] bool? deleteAtRemote) => Commands.Branch.Delete(branch));
+});
 
 app.AddSubCommand("release", sc =>
 {

@@ -24,5 +24,19 @@ internal static partial class Commands
                     .ExecuteAndFinish();
             }
         }
+
+        public static void Delete(string branch, bool? deleteAtRemote = null)
+        {
+            Git.Branch()
+                .Delete(branch)
+                .ExecuteAndFinish();
+
+            if (deleteAtRemote ?? true)
+            {
+                Git.Push()
+                    .DeleteRef(branch)
+                    .ExecuteAndFinish();
+            }
+        }
     }
 }

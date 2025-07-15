@@ -29,6 +29,7 @@ public static partial class Git
     public static class PushFlags
     {
         public const string SetUpstream = "--set-upstream";
+        public const string DeleteRef = "--delete";
     }
 
     public static class MergeFlags
@@ -41,6 +42,7 @@ public static partial class Git
     {
         public const string FormatRefnameShort = "--format=\"%(refname:short)\"";
         public const string ShowCurrent = "--show-current";
+        public const string Delete = "--delete";
     }
     public static class FetchFlags
     {

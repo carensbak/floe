@@ -13,6 +13,13 @@ public class PushBuilder : GitProcess
         ArgsBuilder.AppendArgument(refname);
     }
 
+    public PushBuilder DeleteRef(string refName)
+    {
+        ArgsBuilder.AppendFormat($"{Git.PushFlags.DeleteRef} {refName}");
+
+        return this;
+    }
+
     public PushBuilder Origin()
     {
         ArgsBuilder.AppendArgument(Git.Origin);
