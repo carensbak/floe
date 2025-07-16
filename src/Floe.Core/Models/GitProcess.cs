@@ -8,7 +8,7 @@ public abstract class GitProcess : IGitProcess
     protected StringBuilder ArgsBuilder { get; } = new();
 
     public abstract Process Execute();
-    protected Process Execute(string command, string args)
+    protected virtual Process Execute(string command, string args)
     {
         var process = new Process
         {
@@ -27,7 +27,7 @@ public abstract class GitProcess : IGitProcess
     }
 
     public abstract void ExecuteAndFinish();
-    protected void ExecuteAndFinish(string command, string args)
+    protected virtual void ExecuteAndFinish(string command, string args)
     {
         using var process = Execute(command, args);
 
@@ -39,7 +39,7 @@ public abstract class GitProcess : IGitProcess
     }
 
     public abstract Task ExecuteAsync();
-    protected async Task ExecuteAsync(string command, string args)
+    protected virtual async Task ExecuteAsync(string command, string args)
     {
         using var process = Execute(command, args);
 
