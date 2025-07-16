@@ -32,10 +32,12 @@ public abstract class GitProcess : IGitProcess
         using var process = Execute(command, args);
 
         var output = process.StandardOutput.ReadToEnd();
+        var errors = process.StandardError.ReadToEnd();
 
         process.WaitForExit();
 
         Console.WriteLine(output);
+        Console.WriteLine(errors);
     }
 
     public abstract Task ExecuteAsync();
@@ -44,9 +46,11 @@ public abstract class GitProcess : IGitProcess
         using var process = Execute(command, args);
 
         var output = await process.StandardOutput.ReadToEndAsync();
+        var errors = await process.StandardError.ReadToEndAsync();
 
         await process.WaitForExitAsync();
 
         Console.WriteLine(output);
+        Console.WriteLine(errors);
     }
 }
