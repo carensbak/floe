@@ -42,7 +42,7 @@ public static partial class Git
     {
         public const string FormatRefnameShort = "--format=\"%(refname:short)\"";
         public const string ShowCurrent = "--show-current";
-        public const string Delete = "--delete";
+        public const string Delete = "-D";
     }
     public static class FetchFlags
     {
