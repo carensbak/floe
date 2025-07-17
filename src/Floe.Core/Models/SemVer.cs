@@ -74,12 +74,17 @@ public class SemVer : IComparable<SemVer>
     {
         var allTagsString = Git.GetAllTags();
         var allTagsSemver = allTagsString
-            .Select(t => SemVer.FromString(t));
+            .Select(t => SemVer.FromString(t))
+            .ToList();
 
+        return GetLatestVersion(includePreReleases, allTagsSemver);
+    }
 
+    public static SemVer GetLatestVersion(bool includePreReleases, List<SemVer> versions)
+    {
         var latest = includePreReleases
-            ? allTagsSemver.Max()
-            : allTagsSemver
+            ? versions.Max()
+            : versions
                 .Where(t => t.Suffix.IsNullOrWhiteSpace())
                 .DefaultIfEmpty(null)
                 .Max();
