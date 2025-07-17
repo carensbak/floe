@@ -7,7 +7,7 @@
         <AnalysisMode>All</AnalysisMode>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <NoWarn>$(NoWarn);1591</NoWarn>
+        <NoWarn>$(NoWarn);1591;NU1701</NoWarn>
         <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
         <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
 
@@ -28,6 +28,7 @@
     <ItemGroup Condition="$(MSBuildProjectDirectory.Contains('\tests\'))">
         <PackageReference Include="Microsoft.NET.Test.Sdk" />
         <PackageReference Include="xunit.v3" />
+        <PackageReference Include="Shouldly" />
         <Using Include="Xunit" />
     </ItemGroup>
     <PropertyGroup Condition="$(MSBuildProjectDirectory.Contains('\tests\'))">
