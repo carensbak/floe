@@ -24,4 +24,13 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
     </ItemGroup>
+
+    <ItemGroup Condition="$(MSBuildProjectDirectory.Contains('\tests\'))">
+        <PackageReference Include="Microsoft.NET.Test.Sdk" />
+        <PackageReference Include="xunit.v3" />
+        <Using Include="Xunit" />
+    </ItemGroup>
+    <PropertyGroup Condition="$(MSBuildProjectDirectory.Contains('\tests\'))">
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
 </Project>
