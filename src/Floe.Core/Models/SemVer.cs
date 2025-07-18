@@ -1,5 +1,7 @@
 using Floe.Core.Extensions;
 
+using VersionNotFoundException = Floe.Core.Exceptions.VersionNotFoundException;
+
 namespace Floe.Core.Models;
 
 public class SemVer : IComparable<SemVer>
@@ -9,10 +11,8 @@ public class SemVer : IComparable<SemVer>
     public required int Patch { get; set; }
     public string? Suffix { get; set; }
 
-    public override string ToString()
-    {
-        return $"{Major}.{Minor}.{Patch}";
-    }
+    public override string ToString() => $"{Major}.{Minor}.{Patch}";
+    public string ToString(bool includeSuffix) => includeSuffix && !Suffix.IsNullOrWhiteSpace() ? $"{Major}.{Minor}.{Patch}-{Suffix}" : $"{Major}.{Minor}.{Patch}";
 
     public static SemVer FromString(string str)
     {
@@ -74,16 +74,26 @@ public class SemVer : IComparable<SemVer>
     {
         var allTagsString = Git.GetAllTags();
         var allTagsSemver = allTagsString
-            .Select(t => SemVer.FromString(t));
+            .Select(t => SemVer.FromString(t))
+            .ToList();
 
+        return GetLatestVersion(includePreReleases, allTagsSemver);
+    }
 
+    public static SemVer GetLatestVersion(bool includePreReleases, List<SemVer> versions)
+    {
         var latest = includePreReleases
-            ? allTagsSemver.Max()
-            : allTagsSemver
-                .Where(t => t.Suffix.IsNullOrWhiteSpace())
-                .DefaultIfEmpty(null)
-                .Max();
+            ? versions.Max()
+            : SemVer.GetReleaseVersions(versions).Max();
 
-        return latest ?? new SemVer { Major = 1, Minor = 0, Patch = 0 };
+        return latest is not null ? latest : throw new VersionNotFoundException(includePreReleases, versions);
+    }
+
+    public static List<SemVer?> GetReleaseVersions(List<SemVer> unfilteredVersions)
+    {
+        return unfilteredVersions
+            .Where(v => v.Suffix.IsNullOrWhiteSpace())
+            .DefaultIfEmpty(null)
+            .ToList();
     }
 }
