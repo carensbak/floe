@@ -31,6 +31,7 @@
         <PackageReference Include="Shouldly" />
         <PackageReference Include="xunit.runner.visualstudio" />
         <Using Include="Xunit" />
+        <Using Include="Shouldly" />
     </ItemGroup>
     <PropertyGroup Condition="$(MSBuildProjectDirectory.Contains('\tests\'))">
         <IsPackable>false</IsPackable>
