@@ -1,6 +1,7 @@
 using Floe.Core.Builders;
 using Floe.Core.Enums;
 using Floe.Core.Extensions;
+using Floe.Core.Logging;
 
 namespace Floe.Core.Models;
 
@@ -8,6 +9,7 @@ public static partial class Git
 {
     public static string CurrentBranch => GetCurrentBranch();
     public static List<string> LocalBranches => GetLocalBranches();
+    public static List<string> Tags => GetAllTags();
 
     public static BranchBuilder Branch() => new BranchBuilder();
     public static BranchBuilder Branch(string branch) => new BranchBuilder(branch);
@@ -52,13 +54,17 @@ public static partial class Git
         return branches;
     }
 
-    public static List<string> GetAllTags()
+    private static List<string> GetAllTags()
     {
-        var process = Git.Fetch()
+        Logger.LogInfo("Fetching all tags...");
+        Git.Fetch()
             .Tags()
-            .Execute();
+            .ExecuteAndFinish();
 
-        process.Start();
+        Logger.LogInfo("Fetched all tags");
+
+        var process = Git.Tag()
+            .Execute();
 
         var tags = process.StdOutToList();
         process.WaitForExitAsync();
