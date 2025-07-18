@@ -1,5 +1,7 @@
 using Floe.Core.Extensions;
 
+using VersionNotFoundException = Floe.Core.Exceptions.VersionNotFoundException;
+
 namespace Floe.Core.Models;
 
 public class SemVer : IComparable<SemVer>
@@ -82,11 +84,16 @@ public class SemVer : IComparable<SemVer>
     {
         var latest = includePreReleases
             ? versions.Max()
-            : versions
-                .Where(t => t.Suffix.IsNullOrWhiteSpace())
-                .DefaultIfEmpty(null)
-                .Max();
+            : SemVer.GetReleaseVersions(versions).Max();
 
-        return latest ?? new SemVer { Major = 1, Minor = 0, Patch = 0 };
+        return latest is not null ? latest : throw new VersionNotFoundException(includePreReleases, versions);
+    }
+
+    public static List<SemVer?> GetReleaseVersions(List<SemVer> unfilteredVersions)
+    {
+        return unfilteredVersions
+            .Where(v => v.Suffix.IsNullOrWhiteSpace())
+            .DefaultIfEmpty(null)
+            .ToList();
     }
 }
