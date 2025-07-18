@@ -25,7 +25,9 @@
         </PackageReference>
     </ItemGroup>
 
-    <ItemGroup Condition="$(MSBuildProjectDirectory.Contains('\tests\'))">
+    <ItemGroup Condition="
+        $(MSBuildProjectDirectory.Contains('\tests\')) Or
+        $(MSBuildProjectDirectory.Contains('/tests/'))">
         <PackageReference Include="Microsoft.NET.Test.Sdk" />
         <PackageReference Include="xunit.v3" />
         <PackageReference Include="Shouldly" />
@@ -33,7 +35,9 @@
         <Using Include="Xunit" />
         <Using Include="Shouldly" />
     </ItemGroup>
-    <PropertyGroup Condition="$(MSBuildProjectDirectory.Contains('\tests\'))">
+    <PropertyGroup Condition="
+        $(MSBuildProjectDirectory.Contains('\tests\')) Or
+        $(MSBuildProjectDirectory.Contains('/tests/'))">
         <IsPackable>false</IsPackable>
     </PropertyGroup>
 </Project>
