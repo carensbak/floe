@@ -17,6 +17,9 @@ internal static partial class Commands
         {
             var latestVersion = SemVer.GetLatestVersion(includePreReleases: false);
             latestVersion.Major++;
+            latestVersion.Minor = 0;
+            latestVersion.Patch = 0;
+
             var bumpedVersion = latestVersion.ToString();
 
             Commands.Branch.Create(
@@ -29,6 +32,8 @@ internal static partial class Commands
         {
             var latestVersion = SemVer.GetLatestVersion(includePreReleases: false);
             latestVersion.Minor++;
+            latestVersion.Patch = 0;
+
             var bumpedVersion = latestVersion.ToString();
 
             Commands.Branch.Create(
