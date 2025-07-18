@@ -6,6 +6,7 @@
     <File Path="Directory.Packages.props" />
   </Folder>
   <Folder Name="/Tests/">
+    <Project Path="Tests/Floe.Cli.Tests/Floe.Cli.Tests.csproj" />
     <Project Path="tests/Floe.Core.Tests/Floe.Core.Tests.csproj" />
   </Folder>
   <Project Path="src/Floe.Cli/Floe.Cli.csproj" />
