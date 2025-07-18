@@ -11,6 +11,7 @@ public static partial class Git
         public const string Push = "push";
         public const string Pull = "pull";
         public const string Merge = "merge";
+        public const string Init = "init";
         public const string Branch = "branch";
         public const string Fetch = "fetch";
         public const string Tag = "tag";
