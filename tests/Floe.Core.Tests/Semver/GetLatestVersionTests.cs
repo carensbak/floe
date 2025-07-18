@@ -3,7 +3,7 @@ using Floe.Core.Models;
 
 namespace Floe.Core.Tests.Semver;
 
-public class GetLatestVersionTests
+public class GetLatestVersionTests : SemVer
 {
     [Fact]
     public void LatestMajor_ShouldBe_Returned()
