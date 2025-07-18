@@ -9,10 +9,8 @@ public class SemVer : IComparable<SemVer>
     public required int Patch { get; set; }
     public string? Suffix { get; set; }
 
-    public override string ToString()
-    {
-        return $"{Major}.{Minor}.{Patch}";
-    }
+    public override string ToString() => $"{Major}.{Minor}.{Patch}";
+    public string ToString(bool includeSuffix) => includeSuffix && !Suffix.IsNullOrWhiteSpace() ? $"{Major}.{Minor}.{Patch}-{Suffix}" : $"{Major}.{Minor}.{Patch}";
 
     public static SemVer FromString(string str)
     {
