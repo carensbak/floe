@@ -465,6 +465,8 @@ dotnet_diagnostic.CA1711.severity = warning
 dotnet_diagnostic.CA1712.severity = error
 dotnet_diagnostic.CA1715.severity = error
 dotnet_diagnostic.CA1720.severity = error
+#CA1721: Property names should not match get methods
+dotnet_diagnostic.CA1721.severity = suggestion
 dotnet_diagnostic.CA1725.severity = none
 dotnet_diagnostic.CA1724.severity = suggestion
 dotnet_diagnostic.CA1727.severity = error
