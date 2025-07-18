@@ -2,7 +2,7 @@ using Floe.Core.Models;
 
 namespace Floe.Core.Tests.Semver;
 
-public class GetReleaseVersionsTests
+public class GetReleaseVersionsTests : SemVer
 {
     [Fact]
     public void IncludePreReleases_Should_FilterCorrectly()
