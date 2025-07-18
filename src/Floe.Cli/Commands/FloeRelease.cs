@@ -1,3 +1,4 @@
+using Floe.Core.Logging;
 using Floe.Core.Models;
 
 namespace Floe.Cli.Commands;
@@ -6,21 +7,16 @@ internal static partial class Commands
 {
     internal static class Release
     {
-        public static void Latest()
-        {
-            var latestVersion = SemVer.GetLatestVersion(includePreReleases: false);
-
-            Console.WriteLine($"Latest version: '{latestVersion}'");
-        }
+        public static void Latest() => Logger.LogSuccess($"Latest version: '{SemVer.LatestVersion}'");
 
         public static void Major()
         {
-            var latestVersion = SemVer.GetLatestVersion(includePreReleases: false);
-            latestVersion.Major++;
-            latestVersion.Minor = 0;
-            latestVersion.Patch = 0;
+            var latestRelease = SemVer.LatestRelease;
+            latestRelease.Major++;
+            latestRelease.Minor = 0;
+            latestRelease.Patch = 0;
 
-            var bumpedVersion = latestVersion.ToString();
+            var bumpedVersion = latestRelease.ToString();
 
             Commands.Branch.Create(
                 branch: $"{Git.Branches.Release}/{bumpedVersion}",
@@ -30,11 +26,11 @@ internal static partial class Commands
 
         public static void Minor()
         {
-            var latestVersion = SemVer.GetLatestVersion(includePreReleases: false);
-            latestVersion.Minor++;
-            latestVersion.Patch = 0;
+            var latestRelease = SemVer.LatestRelease;
+            latestRelease.Minor++;
+            latestRelease.Patch = 0;
 
-            var bumpedVersion = latestVersion.ToString();
+            var bumpedVersion = latestRelease.ToString();
 
             Commands.Branch.Create(
                 branch: $"{Git.Branches.Release}/{bumpedVersion}",
@@ -44,9 +40,9 @@ internal static partial class Commands
 
         public static void Patch()
         {
-            var latestVersion = SemVer.GetLatestVersion(includePreReleases: false);
-            latestVersion.Patch++;
-            var bumpedVersion = latestVersion.ToString();
+            var latestRelease = SemVer.LatestRelease;
+            latestRelease.Patch++;
+            var bumpedVersion = latestRelease.ToString();
 
             Commands.Branch.Create(
                 branch: $"{Git.Branches.Release}/{bumpedVersion}",
