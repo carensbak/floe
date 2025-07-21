@@ -3,13 +3,13 @@ using Floe.Core.Models;
 
 namespace Floe.Cli.Commands;
 
-internal static partial class Commands
+internal static partial class Command
 {
     internal static class Release
     {
         internal static void Latest() => Logger.LogSuccess($"Latest version: '{SemVer.LatestVersion}'");
 
-        public static void Major()
+        internal static void Major(bool? switchToBranch = null, bool? pushToRemote = null)
         {
             var latestRelease = SemVer.LatestRelease;
             latestRelease.Major++;
@@ -20,11 +20,11 @@ internal static partial class Commands
 
             Command.Branch.Create(
                 branch: $"{Git.Branches.Release}/{bumpedVersion}",
-                switchToBranch: true,
-                pushToRemote: true);
+                switchToBranch ?? true,
+                pushToRemote ?? true);
         }
 
-        public static void Minor()
+        internal static void Minor(bool? switchToBranch = null, bool? pushToRemote = null)
         {
             var latestRelease = SemVer.LatestRelease;
             latestRelease.Minor++;
@@ -34,11 +34,11 @@ internal static partial class Commands
 
             Command.Branch.Create(
                 branch: $"{Git.Branches.Release}/{bumpedVersion}",
-                switchToBranch: true,
-                pushToRemote: true);
+                switchToBranch ?? true,
+                pushToRemote ?? true);
         }
 
-        public static void Patch()
+        internal static void Patch(bool? switchToBranch = null, bool? pushToRemote = null)
         {
             var latestRelease = SemVer.LatestRelease;
             latestRelease.Patch++;
@@ -46,8 +46,8 @@ internal static partial class Commands
 
             Command.Branch.Create(
                 branch: $"{Git.Branches.Release}/{bumpedVersion}",
-                switchToBranch: true,
-                pushToRemote: true);
+                switchToBranch ?? true,
+                pushToRemote ?? true);
         }
     }
 }
