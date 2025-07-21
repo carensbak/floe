@@ -3,7 +3,7 @@ using Floe.Core.Models;
 
 namespace Floe.Cli.Commands;
 
-internal static partial class Commands
+internal static partial class Command
 {
     public static void Merge(string mergingBranch, string? targetBranch = null, string? mergeMessage = null, bool? deleteBranch = null)
     {
@@ -25,7 +25,7 @@ internal static partial class Commands
         if (!(mergingBranch.IsFixBranch() || mergingBranch.IsReleaseBranch()) && targetBranch.IsMasterBranch())
         {
             if (deleteBranch ?? true)
-                Commands.Branch.Delete(mergingBranch, deleteAtRemote: true);
+                Command.Branch.Delete(mergingBranch, deleteAtRemote: true);
 
             return;
         }
@@ -48,7 +48,7 @@ internal static partial class Commands
             .ExecuteAndFinish();
 
         if (deleteBranch ?? true)
-            Commands.Branch.Delete(mergingBranch, deleteAtRemote: true);
+            Command.Branch.Delete(mergingBranch, deleteAtRemote: true);
 
         return;
     }

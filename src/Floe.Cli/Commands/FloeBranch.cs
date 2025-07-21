@@ -2,7 +2,7 @@ using Floe.Core.Models;
 
 namespace Floe.Cli.Commands;
 
-internal static partial class Commands
+internal static partial class Command
 {
     internal static class Branch
     {
