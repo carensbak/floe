@@ -12,6 +12,17 @@ public sealed class InitBuilder : GitProcess
         ArgsBuilder.AppendArgument(path);
     }
 
+    public InitBuilder AddGitIgnore() => CreateFile(".gitignore");
+    public InitBuilder AddReadMe() => CreateFile("README.md");
+    public InitBuilder AddLicense() => CreateFile("License.md");
+
+    private InitBuilder CreateFile(string fileName)
+    {
+        File.Create(fileName).Dispose();
+
+        return this;
+    }
+
     protected override GitProcess AddArgument(string arg)
     {
         ArgsBuilder.AppendArgument(arg);
