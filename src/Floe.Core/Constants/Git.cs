@@ -8,6 +8,7 @@ public static partial class Git
 
     public static class Commands
     {
+        public const string Add = "add";
         public const string Push = "push";
         public const string Pull = "pull";
         public const string Merge = "merge";

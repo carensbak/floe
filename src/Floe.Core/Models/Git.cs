@@ -11,6 +11,8 @@ public static partial class Git
     public static List<string> LocalBranches => GetLocalBranches();
     public static List<string> Tags => GetAllTags();
 
+    public static AddBuilder Add() => new AddBuilder();
+
     public static BranchBuilder Branch() => new BranchBuilder();
     public static BranchBuilder Branch(string branch) => new BranchBuilder(branch);
 
