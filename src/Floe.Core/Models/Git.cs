@@ -30,6 +30,7 @@ public static partial class Git
 
     public static TagBuilder Tag() => new TagBuilder();
     public static TagBuilder Tag(string tag) => new TagBuilder(tag);
+    public static void Tag(params string[] tags) => tags.ForEach(t => Tag(t).ExecuteAndFinish());
 
     public static MergeBuilder Merge(string branch) => Merge(branch, CurrentBranch);
     public static MergeBuilder Merge(string mergeBranch, string targetBranch) => new MergeBuilder(mergeBranch, targetBranch);
@@ -61,7 +62,7 @@ public static partial class Git
         return branches;
     }
 
-    private static List<string> GetAllTags()
+    internal static List<string> GetAllTags()
     {
         Logger.LogInfo("Fetching all tags...");
         Git.Fetch()
