@@ -4,27 +4,14 @@ namespace Floe.Core.Logging;
 
 public static class Logger
 {
-    public static void LogInfo(string message)
-    {
-        Console.ForegroundColor = ConsoleColor.Blue;
-        Console.WriteLine($"{Diagnostics.InfoIcon}{message}");
-    }
+    public static void LogInfo(string message) => LogToConsole(message, ConsoleColor.Blue, Diagnostics.InfoIcon);
+    public static void LogSuccess(string message) => LogToConsole(message, ConsoleColor.Green, Diagnostics.SuccessSymbol);
+    public static void LogWarning(string message) => LogToConsole(message, ConsoleColor.Yellow, Diagnostics.WarningSymbol);
+    public static void LogError(string message) => LogToConsole(message, ConsoleColor.Red, Diagnostics.ErrorSymbol);
 
-    public static void LogSuccess(string message)
+    private static void LogToConsole(string message, ConsoleColor fgColor, string diagnosticsSymbol)
     {
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine($"{Diagnostics.SuccessSymbol}{message}");
-    }
-
-    public static void LogWarning(string message)
-    {
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine($"{Diagnostics.WarningSymbol}{message}");
-    }
-
-    public static void LogError(string message)
-    {
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine($"{Diagnostics.ErrorSymbol}{message}");
+        Console.ForegroundColor = fgColor;
+        Console.WriteLine($"{diagnosticsSymbol}{message}");
     }
 }

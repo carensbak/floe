@@ -72,9 +72,8 @@ public class SemVer : IComparable<SemVer>
         return string.Compare(Suffix, other.Suffix, StringComparison.Ordinal);
     }
 
-    protected static SemVer GetLatestVersion(bool includePreReleases)
+    internal static SemVer GetLatestVersion(bool includePreReleases)
     {
-
         var tagStrings = Git.Tags
             .Select(t => SemVer.FromString(t))
             .ToList();
@@ -82,7 +81,7 @@ public class SemVer : IComparable<SemVer>
         return GetLatestVersion(includePreReleases, tagStrings);
     }
 
-    protected static SemVer GetLatestVersion(bool includePreReleases, List<SemVer> versions)
+    internal static SemVer GetLatestVersion(bool includePreReleases, List<SemVer> versions)
     {
         var latest = includePreReleases
             ? versions.Max()
@@ -91,7 +90,7 @@ public class SemVer : IComparable<SemVer>
         return latest is not null ? latest : throw new VersionNotFoundException(includePreReleases, versions);
     }
 
-    protected static List<SemVer?> GetReleaseVersions(List<SemVer> unfilteredVersions)
+    internal static List<SemVer?> GetReleaseVersions(List<SemVer> unfilteredVersions)
     {
         return unfilteredVersions
             .Where(v => v.Suffix.IsNullOrWhiteSpace())
