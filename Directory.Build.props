@@ -23,11 +23,12 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+        
+        <InternalsVisibleTo Include="Floe.Cli.IntegrationTests" />
+        <InternalsVisibleTo Include="$(AssemblyName).Tests" />
     </ItemGroup>
 
-    <ItemGroup Condition="
-        $(MSBuildProjectDirectory.Contains('\tests\')) Or
-        $(MSBuildProjectDirectory.Contains('/tests/'))">
+    <ItemGroup Condition="$(MSBuildProjectDirectory.Contains('Tests'))">
         <PackageReference Include="Microsoft.NET.Test.Sdk" />
         <PackageReference Include="xunit.v3" />
         <PackageReference Include="Shouldly" />
@@ -35,9 +36,7 @@
         <Using Include="Xunit" />
         <Using Include="Shouldly" />
     </ItemGroup>
-    <PropertyGroup Condition="
-        $(MSBuildProjectDirectory.Contains('\tests\')) Or
-        $(MSBuildProjectDirectory.Contains('/tests/'))">
+    <PropertyGroup Condition="$(MSBuildProjectDirectory.Contains('Tests'))">
         <IsPackable>false</IsPackable>
     </PropertyGroup>
 </Project>

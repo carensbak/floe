@@ -6,32 +6,21 @@ using Floe.Core.Models;
 
 namespace Floe.Core.Builders;
 
-public class BranchBuilder : GitProcess
+public sealed class BranchBuilder : GitProcess
 {
     public BranchBuilder() { }
-
     public BranchBuilder(string branch)
     {
         ArgsBuilder.AppendArgument(branch);
     }
 
-    public BranchBuilder Delete(string branch)
+    public BranchBuilder Delete(string branch) => AddArgument($"{Git.BranchFlags.Delete} {branch}");
+    public BranchBuilder ShowCurrent() => AddArgument(Git.BranchFlags.ShowCurrent);
+    public BranchBuilder Format(BranchFormat format) => AddArgument(format.ToCommandString());
+
+    protected override BranchBuilder AddArgument(string arg)
     {
-        ArgsBuilder.AppendArgument($"{Git.BranchFlags.Delete} {branch}");
-
-        return this;
-    }
-
-    public BranchBuilder ShowCurrent()
-    {
-        ArgsBuilder.AppendArgument(Git.BranchFlags.ShowCurrent);
-
-        return this;
-    }
-
-    public BranchBuilder Format(BranchFormat format)
-    {
-        ArgsBuilder.AppendArgument(format.ToCommandString());
+        ArgsBuilder.AppendArgument(arg);
 
         return this;
     }

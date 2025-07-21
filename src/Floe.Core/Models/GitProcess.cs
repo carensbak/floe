@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Floe.Core.Models;
 
-public abstract class GitProcess : IGitProcess
+public abstract class GitProcess
 {
     protected StringBuilder ArgsBuilder { get; } = new();
 
@@ -53,4 +53,6 @@ public abstract class GitProcess : IGitProcess
         Console.WriteLine(output);
         Console.WriteLine(errors);
     }
+
+    protected abstract GitProcess AddArgument(string arg);
 }

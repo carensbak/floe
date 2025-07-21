@@ -582,8 +582,10 @@ dotnet_naming_rule.private_static_fields_none.severity = none
 dotnet_diagnostic.CA1515.severity = none
 dotnet_diagnostic.S6931.severity = none
 
-[*Tests.cs]
+[*{Tests,IntegrationTests}.cs]
 dotnet_diagnostic.CA1707.severity = none
+dotnet_diagnostic.S1144.severity = none
+dotnet_diagnostic.CA1823.severity = none
 
 # S6562: Always set the "DateTimeKind" when creating new "DateTime" instances
 dotnet_diagnostic.S6562.severity = suggestion

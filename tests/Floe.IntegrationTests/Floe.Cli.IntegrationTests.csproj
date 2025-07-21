@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Floe.Cli\Floe.Cli.csproj" />
+    <ProjectReference Include="..\..\src\Floe.Core\Floe.Core.csproj" />
+  </ItemGroup>
+</Project>

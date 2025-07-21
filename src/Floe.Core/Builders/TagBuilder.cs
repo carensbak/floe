@@ -5,19 +5,17 @@ using Floe.Core.Models;
 
 namespace Floe.Core.Builders;
 
-public class TagBuilder : GitProcess
+public sealed class TagBuilder : GitProcess
 {
     public TagBuilder() { }
-
     public TagBuilder(string tag)
     {
         ArgsBuilder.AppendArgument(tag);
     }
 
-    public TagBuilder PushTag(string tag)
+    protected override TagBuilder AddArgument(string arg)
     {
-        Git.Push(tag)
-            .ExecuteAndFinish();
+        ArgsBuilder.AppendArgument(arg);
 
         return this;
     }
