@@ -53,4 +53,6 @@ public abstract class GitProcess
         Console.WriteLine(output);
         Console.WriteLine(errors);
     }
+
+    protected abstract GitProcess AddArgument(string arg);
 }
