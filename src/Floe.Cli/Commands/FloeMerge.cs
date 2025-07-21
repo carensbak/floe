@@ -5,7 +5,7 @@ namespace Floe.Cli.Commands;
 
 internal static partial class Command
 {
-    public static void Merge(string mergingBranch, string? targetBranch = null, string? mergeMessage = null, bool? deleteBranch = null)
+    internal static void Merge(string mergingBranch, string? targetBranch = null, string? mergeMessage = null, bool? deleteBranch = null)
     {
         Git.Fetch()
             .ExecuteAndFinish();

@@ -7,7 +7,7 @@ internal static partial class Commands
 {
     internal static class Release
     {
-        public static void Latest() => Logger.LogSuccess($"Latest version: '{SemVer.LatestVersion}'");
+        internal static void Latest() => Logger.LogSuccess($"Latest version: '{SemVer.LatestVersion}'");
 
         public static void Major()
         {
