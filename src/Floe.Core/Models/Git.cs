@@ -18,6 +18,8 @@ public static partial class Git
 
     public static CheckoutBuilder Checkout(string refname) => new CheckoutBuilder(refname);
 
+    public static CommitBuilder Commit() => new CommitBuilder();
+
     public static InitBuilder Init() => Init(".");
     public static InitBuilder Init(string path) => new InitBuilder(path);
 

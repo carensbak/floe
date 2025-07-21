@@ -11,6 +11,7 @@ public static partial class Git
         public const string Add = "add";
         public const string Push = "push";
         public const string Pull = "pull";
+        public const string Commit = "commit";
         public const string Merge = "merge";
         public const string Init = "init";
         public const string Branch = "branch";
@@ -46,9 +47,16 @@ public static partial class Git
         public const string ShowCurrent = "--show-current";
         public const string Delete = "-D";
     }
+
     public static class FetchFlags
     {
         public const string All = "--all";
         public const string Tags = "--tags";
+    }
+
+    public static class CommitFlags
+    {
+        public const string Message = "--message";
+        public const string AllowEmpty = "--allow-empty";
     }
 }
