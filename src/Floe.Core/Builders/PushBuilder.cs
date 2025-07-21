@@ -5,7 +5,7 @@ using Floe.Core.Models;
 
 namespace Floe.Core.Builders;
 
-public class PushBuilder : GitProcess
+public sealed class PushBuilder : GitProcess
 {
     public PushBuilder() { }
     public PushBuilder(string refname)
@@ -13,30 +13,14 @@ public class PushBuilder : GitProcess
         ArgsBuilder.AppendArgument(refname);
     }
 
-    public PushBuilder DeleteRef(string refName)
+    public PushBuilder DeleteRef(string refName) => AddArgument($"{Git.PushFlags.DeleteRef} {Git.Origin} {refName}");
+    public PushBuilder Origin() => AddArgument(Git.Origin);
+    public PushBuilder SetOriginUpstream(string upstream) => SetUpstream($"{Git.Origin} {upstream}");
+    public PushBuilder SetUpstream(string upstream) => AddArgument($"{Git.PushFlags.SetUpstream} {upstream}");
+
+    protected override PushBuilder AddArgument(string arg)
     {
-        ArgsBuilder.AppendArgument($"{Git.PushFlags.DeleteRef} {Git.Origin} {refName}");
-
-        return this;
-    }
-
-    public PushBuilder Origin()
-    {
-        ArgsBuilder.AppendArgument(Git.Origin);
-
-        return this;
-    }
-
-    public PushBuilder SetOriginUpstream(string upstream)
-    {
-        SetUpstream($"{Git.Origin} {upstream}");
-
-        return this;
-    }
-
-    public PushBuilder SetUpstream(string upstream)
-    {
-        ArgsBuilder.AppendArgument($"{Git.PushFlags.SetUpstream} {upstream}");
+        ArgsBuilder.AppendArgument(arg);
 
         return this;
     }

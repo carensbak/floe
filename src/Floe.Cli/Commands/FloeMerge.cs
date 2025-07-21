@@ -36,7 +36,7 @@ internal static partial class Command
             if (!semver.IsNullOrWhiteSpace())
             {
                 Git.Tag(semver)
-                    .PushTag(semver)
+                    //.PushTag(semver)
                     .Execute();
             }
         }

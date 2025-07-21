@@ -5,11 +5,18 @@ using Floe.Core.Models;
 
 namespace Floe.Core.Builders;
 
-public class InitBuilder : GitProcess
+public sealed class InitBuilder : GitProcess
 {
     public InitBuilder(string path)
     {
         ArgsBuilder.AppendArgument(path);
+    }
+
+    protected override GitProcess AddArgument(string arg)
+    {
+        ArgsBuilder.AppendArgument(arg);
+
+        return this;
     }
 
     public override Process Execute() => base.Execute(Git.Commands.Init, ArgsBuilder.Build());

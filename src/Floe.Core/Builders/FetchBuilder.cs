@@ -5,18 +5,16 @@ using Floe.Core.Models;
 
 namespace Floe.Core.Builders;
 
-public class FetchBuilder : GitProcess
+public sealed class FetchBuilder : GitProcess
 {
-    public FetchBuilder Branch(string branch)
-    {
-        ArgsBuilder.AppendArgument(branch);
+    public FetchBuilder() { }
 
-        return this;
-    }
+    public FetchBuilder Branch(string branch) => AddArgument(branch);
+    public FetchBuilder Tags() => AddArgument(Git.FetchFlags.Tags);
 
-    public FetchBuilder Tags()
+    protected override FetchBuilder AddArgument(string arg)
     {
-        ArgsBuilder.AppendArgument(Git.FetchFlags.Tags);
+        ArgsBuilder.AppendArgument(arg);
 
         return this;
     }

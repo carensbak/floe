@@ -5,30 +5,20 @@ using Floe.Core.Models;
 
 namespace Floe.Core.Builders;
 
-public class MergeBuilder : GitProcess
+public sealed class MergeBuilder : GitProcess
 {
     public MergeBuilder(string mergeBranch, string targetBranch)
     {
         ArgsBuilder.AppendArgument($"{mergeBranch} {targetBranch}");
     }
 
-    public MergeBuilder Message(string message)
+    public MergeBuilder Message(string message) => AddArgument($"{Git.MergeFlags.Message} {message}");
+    public MergeBuilder NoFastForward() => AddArgument(Git.MergeFlags.NoFastForward);
+    public MergeBuilder Into(string branch) => AddArgument(branch);
+
+    protected override MergeBuilder AddArgument(string arg)
     {
-        ArgsBuilder.AppendArgument($"{Git.MergeFlags.Message} {message}");
-
-        return this;
-    }
-
-    public MergeBuilder NoFastForward()
-    {
-        ArgsBuilder.AppendArgument(Git.MergeFlags.NoFastForward);
-
-        return this;
-    }
-
-    public MergeBuilder Into(string branch)
-    {
-        ArgsBuilder.AppendArgument(branch);
+        ArgsBuilder.AppendArgument(arg);
 
         return this;
     }
