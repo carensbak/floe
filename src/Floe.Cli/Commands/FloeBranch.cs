@@ -1,3 +1,4 @@
+using Floe.Core.Exceptions;
 using Floe.Core.Models;
 
 namespace Floe.Cli.Commands;
@@ -27,6 +28,9 @@ internal static partial class Command
 
         public static void Delete(string branch, bool? deleteAtRemote = null)
         {
+            if (branch == Git.CurrentBranch)
+                throw new DeleteCheckedOutBranchException(branch);
+
             Git.Branch()
                 .Delete(branch)
                 .ExecuteAndFinish();
