@@ -5,53 +5,91 @@ namespace Floe.Core.Models;
 
 public abstract class GitProcess
 {
-    protected StringBuilder ArgsBuilder { get; } = new();
+	private List<string> _outputLines { get; } = [];
+	private List<string> _outputErrors { get; } = [];
+	private string? _outputLine { get; set; }
+	private string? _errorLine { get; set; }
+
+	protected StringBuilder ArgsBuilder { get; } = new();
 
 	private Process StartProcess(string command, string args)
-    {
-        var process = new Process
-        {
-            StartInfo = new ProcessStartInfo
-            {
-                FileName = Git.BaseName,
-                Arguments = string.Join(' ', command, args),
-                RedirectStandardError = true,
-                RedirectStandardOutput = true,
-            }
-        };
+	{
+		var process = new Process
+		{
+			StartInfo = new ProcessStartInfo
+			{
+				FileName = Git.BaseName,
+				Arguments = string.Join(' ', command, args),
+				RedirectStandardError = true,
+				RedirectStandardOutput = true,
+			}
+		};
 
-        process.Start();
+		process.Start();
 
-        return process;
-    }
-
+		return process;
+	}
 
 	protected abstract GitProcess AddArgument(string arg);
-	public abstract void Execute();
-	protected virtual void Execute(string command, string args)
-    {
+	public abstract ProcessResult Execute();
+	protected virtual ProcessResult Execute(string command, string args)
+	{
 		using var process = StartProcess(command, args);
+		ProcessOutput(process);
 
-        var output = process.StandardOutput.ReadToEnd();
-        var errors = process.StandardError.ReadToEnd();
+		process.WaitForExit();
+		LogErrorsOrOutput();
 
-        process.WaitForExit();
+		return new ProcessResult { StdOutLines = _outputLines, ErrorLines = _outputErrors, ExitCode = process.ExitCode };
+	}
 
-        Console.WriteLine(output);
-        Console.WriteLine(errors);
-    }
-
-    public abstract Task ExecuteAsync();
-    protected virtual async Task ExecuteAsync(string command, string args)
-    {
+	public abstract Task<ProcessResult> ExecuteAsync();
+	protected virtual async Task<ProcessResult> ExecuteAsync(string command, string args)
+	{
 		using var process = StartProcess(command, args);
+		await ProcessOutputAsync(process);
 
-        var output = await process.StandardOutput.ReadToEndAsync();
-        var errors = await process.StandardError.ReadToEndAsync();
+		await process.WaitForExitAsync();
+		LogErrorsOrOutput();
 
-        await process.WaitForExitAsync();
+		return new ProcessResult { StdOutLines = _outputLines, ErrorLines = _outputErrors, ExitCode = process.ExitCode };
+	}
 
-        Console.WriteLine(output);
-        Console.WriteLine(errors);
-    }
+	private void ProcessOutput(Process process)
+	{
+		using var oReader = process.StandardOutput;
+		while ((_outputLine = oReader.ReadLine()) != null)
+			_outputLines.Add(_outputLine);
+
+		using var eReader = process.StandardError;
+		while ((_errorLine = eReader.ReadLine()) != null)
+			_outputErrors.Add(_errorLine);
+	}
+
+	private async Task ProcessOutputAsync(Process process)
+	{
+		Task readStdOutAsync = Task.Run(async () =>
+		{
+			using var reader = process.StandardOutput;
+			while ((_outputLine = await reader.ReadLineAsync()) != null)
+				_outputLines.Add(_outputLine);
+		});
+
+		Task readStdErrorAsync = Task.Run(async () =>
+		{
+			using var reader = process.StandardError;
+			while ((_errorLine = await reader.ReadLineAsync()) != null)
+				_outputErrors.Add(_errorLine);
+		});
+
+		await Task.WhenAll(readStdOutAsync, readStdErrorAsync);
+	}
+
+	private void LogErrorsOrOutput()
+	{
+		if (_outputErrors.Count > 0)
+			_outputErrors.ForEach(el => Console.WriteLine(el));
+		else
+			_outputLines.ForEach(ol => Console.WriteLine(ol));
+	}
 }
