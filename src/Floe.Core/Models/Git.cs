@@ -7,76 +7,78 @@ namespace Floe.Core.Models;
 
 public static partial class Git
 {
-    public static string CurrentBranch => GetCurrentBranch();
-    public static List<string> LocalBranches => GetLocalBranches();
-    public static List<string> Tags => GetAllTags();
+	public static string CurrentBranch => GetCurrentBranch();
+	public static List<string> LocalBranches => GetLocalBranches();
+	public static List<string> Tags => GetAllTags();
 
-    public static AddBuilder Add() => new AddBuilder();
+	public static AddBuilder Add() => new AddBuilder();
 
-    public static BranchBuilder Branch() => new BranchBuilder();
-    public static BranchBuilder Branch(string branch) => new BranchBuilder(branch);
+	public static BranchBuilder Branch() => new BranchBuilder();
+	public static BranchBuilder Branch(string branch) => new BranchBuilder(branch);
 
-    public static CheckoutBuilder Checkout(string refname) => new CheckoutBuilder(refname);
+	public static CheckoutBuilder Checkout(string refname) => new CheckoutBuilder(refname);
 
-    public static CommitBuilder Commit() => new CommitBuilder();
+	public static CommitBuilder Commit() => new CommitBuilder();
 
-    public static InitBuilder Init() => Init(".");
-    public static InitBuilder Init(string path) => new InitBuilder(path);
+	public static InitBuilder Init() => Init(".");
+	public static InitBuilder Init(string path) => new InitBuilder(path);
 
-    public static FetchBuilder Fetch() => new FetchBuilder();
+	public static LogBuilder Log() => new LogBuilder();
 
-    public static PushBuilder Push() => new PushBuilder();
-    public static PushBuilder Push(string refname) => new PushBuilder(refname);
+	public static FetchBuilder Fetch() => new FetchBuilder();
 
-    public static TagBuilder Tag() => new TagBuilder();
-    public static TagBuilder Tag(string tag) => new TagBuilder(tag);
-    public static void Tag(params string[] tags) => tags.ForEach(t => Tag(t).ExecuteAndFinish());
+	public static PushBuilder Push() => new PushBuilder();
+	public static PushBuilder Push(string refname) => new PushBuilder(refname);
 
-    public static MergeBuilder Merge(string branch) => Merge(branch, CurrentBranch);
-    public static MergeBuilder Merge(string mergeBranch, string targetBranch) => new MergeBuilder(mergeBranch, targetBranch);
+	public static TagBuilder Tag() => new TagBuilder();
+	public static TagBuilder Tag(string tag) => new TagBuilder(tag);
+	public static void Tag(params string[] tags) => tags.ForEach(t => Tag(t).ExecuteAndFinish());
+
+	public static MergeBuilder Merge(string branch) => Merge(branch, CurrentBranch);
+	public static MergeBuilder Merge(string mergeBranch, string targetBranch) => new MergeBuilder(mergeBranch, targetBranch);
 
 
-    private static string GetCurrentBranch()
-    {
-        var process = Git.Branch()
-            .ShowCurrent()
-            .Execute();
+	private static string GetCurrentBranch()
+	{
+		var process = Git.Branch()
+			.ShowCurrent()
+			.Execute();
 
-        var branch = process.GetStdOutFirstLine();
-        process.WaitForExit();
+		var branch = process.GetStdOutFirstLine();
+		process.WaitForExit();
 
-        return branch;
-    }
+		return branch;
+	}
 
-    private static List<string> GetLocalBranches()
-    {
-        var process = Git.Branch()
-            .Format(BranchFormat.RefnameShort)
-            .Execute();
+	private static List<string> GetLocalBranches()
+	{
+		var process = Git.Branch()
+			.Format(BranchFormat.RefnameShort)
+			.Execute();
 
-        process.Start();
+		process.Start();
 
-        var branches = process.StdOutToList();
-        process.WaitForExitAsync();
+		var branches = process.StdOutToList();
+		process.WaitForExitAsync();
 
-        return branches;
-    }
+		return branches;
+	}
 
-    internal static List<string> GetAllTags()
-    {
-        Logger.LogInfo("Fetching all tags...");
-        Git.Fetch()
-            .Tags()
-            .ExecuteAndFinish();
+	internal static List<string> GetAllTags()
+	{
+		Logger.LogInfo("Fetching all tags...");
+		Git.Fetch()
+			.Tags()
+			.ExecuteAndFinish();
 
-        Logger.LogInfo("Fetched all tags");
+		Logger.LogInfo("Fetched all tags");
 
-        var process = Git.Tag()
-            .Execute();
+		var process = Git.Tag()
+			.Execute();
 
-        var tags = process.StdOutToList();
-        process.WaitForExitAsync();
+		var tags = process.StdOutToList();
+		process.WaitForExitAsync();
 
-        return tags;
-    }
+		return tags;
+	}
 }
