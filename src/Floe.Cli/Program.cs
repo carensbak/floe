@@ -26,10 +26,14 @@ app.AddSubCommand("branch", sc =>
 
 app.AddSubCommand("release", sc =>
 {
+	sc.AddCommand("latest", () => Command.Release.Latest());
+});
+
+app.AddSubCommand("new", sc =>
+{
 	sc.AddCommand("major", () => Command.Release.Major());
 	sc.AddCommand("minor", () => Command.Release.Minor());
 	sc.AddCommand("patch", () => Command.Release.Patch());
-	sc.AddCommand("latest", () => Command.Release.Latest());
 });
 
 await app.RunAsync();
