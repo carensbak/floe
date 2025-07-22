@@ -23,6 +23,6 @@ public sealed class BranchBuilder : GitProcess
         return this;
     }
 
-	public override void Execute() => base.Execute(Git.Commands.Branch, ArgsBuilder.Build());
-    public override Task ExecuteAsync() => base.ExecuteAsync(Git.Commands.Branch, ArgsBuilder.Build());
+	public override ProcessResult Execute() => base.Execute(Git.Commands.Branch, ArgsBuilder.Build());
+	public override Task<ProcessResult> ExecuteAsync() => base.ExecuteAsync(Git.Commands.Branch, ArgsBuilder.Build());
 }

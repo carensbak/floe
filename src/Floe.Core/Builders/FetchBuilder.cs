@@ -17,6 +17,6 @@ public sealed class FetchBuilder : GitProcess
 		return this;
 	}
 
-	public override void Execute() => base.Execute(Git.Commands.Fetch, ArgsBuilder.Build());
-	public override async Task ExecuteAsync() => await base.ExecuteAsync(Git.Commands.Fetch, ArgsBuilder.Build());
+	public override ProcessResult Execute() => base.Execute(Git.Commands.Fetch, ArgsBuilder.Build());
+	public override async Task<ProcessResult> ExecuteAsync() => await base.ExecuteAsync(Git.Commands.Fetch, ArgsBuilder.Build());
 }

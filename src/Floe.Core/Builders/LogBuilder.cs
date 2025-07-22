@@ -14,6 +14,6 @@ public class LogBuilder : GitProcess
 		return this;
 	}
 
-	public override void Execute() => base.Execute(Git.BaseName, ArgsBuilder.Build());
-	public override Task ExecuteAsync() => base.ExecuteAsync(Git.BaseName, ArgsBuilder.Build());
+	public override ProcessResult Execute() => base.Execute(Git.BaseName, ArgsBuilder.Build());
+	public override Task<ProcessResult> ExecuteAsync() => base.ExecuteAsync(Git.BaseName, ArgsBuilder.Build());
 }

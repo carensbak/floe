@@ -21,6 +21,6 @@ public sealed class MergeBuilder : GitProcess
 		return this;
 	}
 
-	public override void Execute() => base.Execute(Git.Commands.Merge, ArgsBuilder.Build());
-	public override Task ExecuteAsync() => base.ExecuteAsync(Git.Commands.Merge, ArgsBuilder.Build());
+	public override ProcessResult Execute() => base.Execute(Git.Commands.Merge, ArgsBuilder.Build());
+	public override Task<ProcessResult> ExecuteAsync() => base.ExecuteAsync(Git.Commands.Merge, ArgsBuilder.Build());
 }

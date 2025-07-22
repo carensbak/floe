@@ -23,6 +23,6 @@ public sealed class PushBuilder : GitProcess
 		return this;
 	}
 
-	public override void Execute() => base.Execute(Git.Commands.Push, ArgsBuilder.Build());
-	public override Task ExecuteAsync() => base.ExecuteAsync(Git.Commands.Push, ArgsBuilder.Build());
+	public override ProcessResult Execute() => base.Execute(Git.Commands.Push, ArgsBuilder.Build());
+	public override Task<ProcessResult> ExecuteAsync() => base.ExecuteAsync(Git.Commands.Push, ArgsBuilder.Build());
 }
