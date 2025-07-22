@@ -8,7 +8,7 @@ internal static partial class Command
     internal static void Merge(string mergingBranch, string? targetBranch = null, string? mergeMessage = null, bool? deleteBranch = null)
     {
         Git.Fetch()
-            .ExecuteAndFinish();
+            .Execute();
 
         if (targetBranch.IsNullOrWhiteSpace())
             targetBranch = Git.CurrentBranch;
@@ -20,7 +20,7 @@ internal static partial class Command
             .Into(targetBranch)
             .Message(mergeMessage!)
             .NoFastForward()
-            .ExecuteAndFinish();
+            .Execute();
 
         if (!(mergingBranch.IsFixBranch() || mergingBranch.IsReleaseBranch()) && targetBranch.IsMasterBranch())
         {
@@ -37,7 +37,7 @@ internal static partial class Command
             {
                 Git.Tag(semver)
                     //.PushTag(semver)
-                    .Execute();
+                    .StartProcess();
             }
         }
 
@@ -45,7 +45,7 @@ internal static partial class Command
             .Into(Git.Branches.Dev)
             .NoFastForward()
             .Message($"merge: '{mergingBranch}' -> 'dev'")
-            .ExecuteAndFinish();
+            .Execute();
 
         if (deleteBranch ?? true)
             Command.Branch.Delete(mergingBranch, deleteAtRemote: true);

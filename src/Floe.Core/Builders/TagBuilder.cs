@@ -1,5 +1,3 @@
-using System.Diagnostics;
-
 using Floe.Core.Extensions;
 using Floe.Core.Models;
 
@@ -20,7 +18,6 @@ public sealed class TagBuilder : GitProcess
         return this;
     }
 
-    public override Process Execute() => base.Execute(Git.Commands.Tag, ArgsBuilder.Build());
-    public override void ExecuteAndFinish() => base.ExecuteAndFinish(Git.Commands.Tag, ArgsBuilder.Build());
+	public override void Execute() => base.Execute(Git.Commands.Tag, ArgsBuilder.Build());
     public override Task ExecuteAsync() => base.ExecuteAsync(Git.Commands.Tag, ArgsBuilder.Build());
 }

@@ -7,8 +7,7 @@ public abstract class GitProcess
 {
     protected StringBuilder ArgsBuilder { get; } = new();
 
-    public abstract Process Execute();
-    protected virtual Process Execute(string command, string args)
+	private Process StartProcess(string command, string args)
     {
         var process = new Process
         {
@@ -26,10 +25,12 @@ public abstract class GitProcess
         return process;
     }
 
-    public abstract void ExecuteAndFinish();
-    protected virtual void ExecuteAndFinish(string command, string args)
+
+	protected abstract GitProcess AddArgument(string arg);
+	public abstract void Execute();
+	protected virtual void Execute(string command, string args)
     {
-        using var process = Execute(command, args);
+		using var process = StartProcess(command, args);
 
         var output = process.StandardOutput.ReadToEnd();
         var errors = process.StandardError.ReadToEnd();
@@ -43,7 +44,7 @@ public abstract class GitProcess
     public abstract Task ExecuteAsync();
     protected virtual async Task ExecuteAsync(string command, string args)
     {
-        using var process = Execute(command, args);
+		using var process = StartProcess(command, args);
 
         var output = await process.StandardOutput.ReadToEndAsync();
         var errors = await process.StandardError.ReadToEndAsync();
@@ -53,6 +54,4 @@ public abstract class GitProcess
         Console.WriteLine(output);
         Console.WriteLine(errors);
     }
-
-    protected abstract GitProcess AddArgument(string arg);
 }
