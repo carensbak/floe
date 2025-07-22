@@ -13,8 +13,7 @@ public class SemVer : IComparable<SemVer>
 
     public static SemVer LatestRelease => GetLatestVersion(includePreReleases: false);
     public static SemVer LatestVersion => GetLatestVersion(includePreReleases: true);
-    public override string ToString() => $"{Major}.{Minor}.{Patch}";
-    public string ToString(bool includeSuffix) => includeSuffix && !Suffix.IsNullOrWhiteSpace() ? $"{Major}.{Minor}.{Patch}-{Suffix}" : $"{Major}.{Minor}.{Patch}";
+	public override string ToString() => !Suffix.IsNullOrWhiteSpace() ? $"{Major}.{Minor}.{Patch}-{Suffix}" : $"{Major}.{Minor}.{Patch}";
 
     public static SemVer FromString(string str)
     {
