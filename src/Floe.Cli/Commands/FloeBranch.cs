@@ -42,5 +42,17 @@ internal static partial class Command
 					.Execute();
 			}
 		}
+
+		public static void Fix(string branchSuffix, bool? switchToBranch = null, bool? pushToRemote = null)
+			=> Create($"fix/{branchSuffix}", switchToBranch ?? true, pushToRemote ?? true);
+
+		public static void Feature(string branchSuffix, bool? switchToBranch = null, bool? pushToRemote = null)
+			=> Create($"feature/{branchSuffix}", switchToBranch ?? true, pushToRemote ?? true);
+
+		public static void Test(string branchSuffix, bool? switchToBranch = null, bool? pushToRemote = null)
+			=> Create($"tests/{branchSuffix}", switchToBranch ?? true, pushToRemote ?? true);
+
+		public static void Docs(string branchSuffix, bool? switchToBranch = null, bool? pushToRemote = null)
+			=> Create($"docs/{branchSuffix}", switchToBranch ?? true, pushToRemote ?? true);
 	}
 }
