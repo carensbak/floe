@@ -35,9 +35,7 @@ internal static partial class Command
             var semver = mergingBranch.TryGetSemver();
             if (!semver.IsNullOrWhiteSpace())
             {
-                Git.Tag(semver)
-                    //.PushTag(semver)
-                    .StartProcess();
+				//tagging and pushing here.
             }
         }
 
