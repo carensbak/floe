@@ -1,5 +1,3 @@
-using System.Diagnostics;
-
 using Floe.Core.Enums;
 using Floe.Core.Extensions;
 using Floe.Core.Models;
@@ -25,7 +23,30 @@ public sealed class BranchBuilder : GitProcess
         return this;
     }
 
-    public override Process Execute() => base.Execute(Git.Commands.Branch, ArgsBuilder.Build());
-    public override void ExecuteAndFinish() => base.ExecuteAndFinish(Git.Commands.Branch, ArgsBuilder.Build());
-    public override Task ExecuteAsync() => base.ExecuteAsync(Git.Commands.Branch, ArgsBuilder.Build());
+	public override ProcessResult Execute() => base.Execute(Git.Commands.Branch, ArgsBuilder.Build());
+	public override Task<ProcessResult> ExecuteAsync() => base.ExecuteAsync(Git.Commands.Branch, ArgsBuilder.Build());
+
+	internal static List<string> GetLocalBranches()
+	{
+		var result = Git.Branch()
+			.Format(BranchFormat.RefnameShort)
+			.Execute();
+
+		if (!result.WasSuccess)
+			throw new NotImplementedException();
+
+		return result.StdOutLines;
+	}
+
+	internal static string GetCurrentBranch()
+	{
+		var result = Git.Branch()
+			.ShowCurrent()
+			.Execute();
+
+		if (!result.WasSuccess)
+			throw new NotImplementedException();
+
+		return result.FirstLine;
+	}
 }

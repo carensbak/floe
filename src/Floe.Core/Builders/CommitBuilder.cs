@@ -1,5 +1,3 @@
-using System.Diagnostics;
-
 using Floe.Core.Extensions;
 using Floe.Core.Models;
 
@@ -7,19 +5,18 @@ namespace Floe.Core.Builders;
 
 public sealed class CommitBuilder : GitProcess
 {
-    public CommitBuilder() { }
+	public CommitBuilder() { }
 
-    public CommitBuilder WithMessage(string message) => AddArgument($"{Git.CommitFlags.Message} \"{message}\"");
-    public CommitBuilder AllowEmpty() => AddArgument(Git.CommitFlags.AllowEmpty);
+	public CommitBuilder WithMessage(string message) => AddArgument($"{Git.CommitFlags.Message} \"{message}\"");
+	public CommitBuilder AllowEmpty() => AddArgument(Git.CommitFlags.AllowEmpty);
 
-    protected override CommitBuilder AddArgument(string arg)
-    {
-        ArgsBuilder.AppendArgument(arg);
+	protected override CommitBuilder AddArgument(string arg)
+	{
+		ArgsBuilder.AppendArgument(arg);
 
-        return this;
-    }
+		return this;
+	}
 
-    public override Process Execute() => base.Execute(Git.Commands.Commit, ArgsBuilder.Build());
-    public override void ExecuteAndFinish() => base.ExecuteAndFinish(Git.Commands.Commit, ArgsBuilder.Build());
-    public override Task ExecuteAsync() => base.ExecuteAsync(Git.Commands.Commit, ArgsBuilder.Build());
+	public override ProcessResult Execute() => base.Execute(Git.Commands.Commit, ArgsBuilder.Build());
+	public override Task<ProcessResult> ExecuteAsync() => base.ExecuteAsync(Git.Commands.Commit, ArgsBuilder.Build());
 }

@@ -27,7 +27,7 @@ public class BranchTests(GitRepoFixture fixture)
             Command.Branch.Create(existingBranch, switchToBranch: false, pushToRemote: false);
 
         Git.Checkout(existingBranch)
-            .ExecuteAndFinish();
+            .Execute();
 
         Git.CurrentBranch.ShouldBe(existingBranch);
         var currentBranch = existingBranch;
