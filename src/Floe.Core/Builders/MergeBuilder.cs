@@ -1,5 +1,3 @@
-using System.Diagnostics;
-
 using Floe.Core.Extensions;
 using Floe.Core.Models;
 
@@ -7,23 +5,22 @@ namespace Floe.Core.Builders;
 
 public sealed class MergeBuilder : GitProcess
 {
-    public MergeBuilder(string mergeBranch, string targetBranch)
-    {
-        ArgsBuilder.AppendArgument($"{mergeBranch} {targetBranch}");
-    }
+	public MergeBuilder(string mergeBranch, string targetBranch)
+	{
+		ArgsBuilder.AppendArgument($"{mergeBranch} {targetBranch}");
+	}
 
-    public MergeBuilder Message(string message) => AddArgument($"{Git.MergeFlags.Message} {message}");
-    public MergeBuilder NoFastForward() => AddArgument(Git.MergeFlags.NoFastForward);
-    public MergeBuilder Into(string branch) => AddArgument(branch);
+	public MergeBuilder Message(string message) => AddArgument($"{Git.MergeFlags.Message} {message}");
+	public MergeBuilder NoFastForward() => AddArgument(Git.MergeFlags.NoFastForward);
+	public MergeBuilder Into(string branch) => AddArgument(branch);
 
-    protected override MergeBuilder AddArgument(string arg)
-    {
-        ArgsBuilder.AppendArgument(arg);
+	protected override MergeBuilder AddArgument(string arg)
+	{
+		ArgsBuilder.AppendArgument(arg);
 
-        return this;
-    }
+		return this;
+	}
 
-    public override Process Execute() => base.Execute(Git.Commands.Merge, ArgsBuilder.Build());
-    public override void ExecuteAndFinish() => base.ExecuteAndFinish(Git.Commands.Merge, ArgsBuilder.Build());
-    public override Task ExecuteAsync() => base.ExecuteAsync(Git.Commands.Merge, ArgsBuilder.Build());
+	public override ProcessResult Execute() => base.Execute(Git.Commands.Merge, ArgsBuilder.Build());
+	public override Task<ProcessResult> ExecuteAsync() => base.ExecuteAsync(Git.Commands.Merge, ArgsBuilder.Build());
 }
