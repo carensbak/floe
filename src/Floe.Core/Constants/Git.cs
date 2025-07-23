@@ -65,4 +65,9 @@ public static partial class Git
 		public const string MergeBase = "merge-base";
 		public const string RevParse = "rev-parse";
 	}
+
+	public static class InitFlags
+	{
+		public const string InitialBranch = "--initial-branch";
+	}
 }
