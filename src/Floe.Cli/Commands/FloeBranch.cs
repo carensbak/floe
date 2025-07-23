@@ -1,4 +1,5 @@
 using Floe.Core.Exceptions;
+using Floe.Core.Extensions;
 using Floe.Core.Models;
 
 namespace Floe.Cli.Commands;
@@ -44,15 +45,47 @@ internal static partial class Command
 		}
 
 		public static void Fix(string branchSuffix, bool? switchToBranch = null, bool? pushToRemote = null)
-			=> Create($"fix/{branchSuffix}", switchToBranch ?? true, pushToRemote ?? true);
+		{
+			if (Git.CurrentBranch != Git.Branches.Master)
+			{
+				Git.Checkout(Git.Branches.Master)
+					.Execute();
+			}
+
+			Create($"{Git.Branches.Fix}/{branchSuffix}", switchToBranch ?? true, pushToRemote ?? true);
+		}
 
 		public static void Feature(string branchSuffix, bool? switchToBranch = null, bool? pushToRemote = null)
-			=> Create($"feature/{branchSuffix}", switchToBranch ?? true, pushToRemote ?? true);
+		{
+			if (Git.CurrentBranch != Git.Branches.Dev)
+			{
+				Git.Checkout(Git.Branches.Dev)
+					.Execute();
+			}
+
+			Create($"{Git.Branches.Feature}/{branchSuffix}", switchToBranch ?? true, pushToRemote ?? true);
+		}
 
 		public static void Test(string branchSuffix, bool? switchToBranch = null, bool? pushToRemote = null)
-			=> Create($"tests/{branchSuffix}", switchToBranch ?? true, pushToRemote ?? true);
+		{
+			if (!Git.CurrentBranch.IsFeatureBranch() || Git.CurrentBranch != Git.Branches.Dev)
+			{
+				Git.Checkout(Git.Branches.Dev)
+					.Execute();
+			}
+
+			Create($"{Git.Branches.Tests}/{branchSuffix}", switchToBranch ?? true, pushToRemote ?? true);
+		}
 
 		public static void Docs(string branchSuffix, bool? switchToBranch = null, bool? pushToRemote = null)
-			=> Create($"docs/{branchSuffix}", switchToBranch ?? true, pushToRemote ?? true);
+		{
+			if (!Git.CurrentBranch.IsFeatureBranch() || Git.CurrentBranch != Git.Branches.Dev)
+			{
+				Git.Checkout(Git.Branches.Dev)
+					.Execute();
+			}
+
+			Create($"{Git.Branches.Docs}/{branchSuffix}", switchToBranch ?? true, pushToRemote ?? true);
+		}
 	}
 }
