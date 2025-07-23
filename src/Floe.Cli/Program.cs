@@ -23,37 +23,31 @@ app.AddSubCommand("new", sc =>
 	sc.AddCommand("minor", () => Command.Release.Minor());
 	sc.AddCommand("patch", () => Command.Release.Patch());
 
-	//TODO: Tests
 	sc.AddCommand("fix", (
 		[Argument] string branchSuffix,
 		[Option(Description = "Switch to the created branch?")] bool? switchToBranch,
 		[Option(Description = "Push branch to remote?")] bool? pushBranchToRemote) => Command.Branch.Fix(branchSuffix, switchToBranch, pushBranchToRemote));
 
-	//TODO: Tests
 	sc.AddCommand("feature", (
 		[Argument] string branchSuffix,
 		[Option(Description = "Switch to the created branch?")] bool? switchToBranch,
 		[Option(Description = "Push branch to remote?")] bool? pushBranchToRemote) => Command.Branch.Feature(branchSuffix, switchToBranch, pushBranchToRemote));
 
-	//TODO: Tests
 	sc.AddCommand("test", (
 		[Argument] string branchSuffix,
 		[Option(Description = "Switch to the created branch?")] bool? switchToBranch,
 		[Option(Description = "Push branch to remote?")] bool? pushBranchToRemote) => Command.Branch.Test(branchSuffix, switchToBranch, pushBranchToRemote));
 
-	//TODO: Tests
 	sc.AddCommand("docs", (
 		[Argument] string branchSuffix,
 		[Option(Description = "Switch to the created branch?")] bool? switchToBranch,
 		[Option(Description = "Push branch to remote?")] bool? pushBranchToRemote) => Command.Branch.Docs(branchSuffix, switchToBranch, pushBranchToRemote));
 
-	//TODO: Tests
 	sc.AddCommand("tag", (
 		[Argument] string tag,
 		[Option(Description = "Push tag to remote?")] bool? pushToRemote) =>
 	{ throw new NotImplementedException(); });
 
-	//TODO: Tests
 	sc.AddCommand("branch", (
 		[Argument] string branch,
 		[Option(Description = "Switch to the created branch?")] bool? switchToBranch,
