@@ -17,8 +17,8 @@ public class LogBuilder : GitProcess
 		return this;
 	}
 
-	public override ProcessResult Execute() => base.Execute(Git.BaseName, ArgsBuilder.Build());
-	public override Task<ProcessResult> ExecuteAsync() => base.ExecuteAsync(Git.BaseName, ArgsBuilder.Build());
+	public override ProcessResult Execute() => base.Execute("", ArgsBuilder.Build());
+	public override Task<ProcessResult> ExecuteAsync() => base.ExecuteAsync("", ArgsBuilder.Build());
 
 	public string GetBranchOffCommit(string branchOne, string branchTwo)
 	{

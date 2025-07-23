@@ -8,6 +8,7 @@ public sealed class InitBuilder : GitProcess
 	public InitBuilder(string path)
 	{
 		ArgsBuilder.AppendArgument(path);
+		ArgsBuilder.AppendArgument($"{Git.InitFlags.InitialBranch} {Git.Branches.Master}");
 	}
 
 	public InitBuilder AddGitIgnore() => CreateFile(".gitignore");
