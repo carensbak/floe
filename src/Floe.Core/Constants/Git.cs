@@ -27,6 +27,8 @@ public static partial class Git
 		public const string Fix = "fix";
 		public const string Feature = "feature";
 		public const string Release = "release";
+		public const string Docs = "docs";
+		public const string Tests = "tests";
 	}
 
 	public static class PushFlags
@@ -64,5 +66,10 @@ public static partial class Git
 	{
 		public const string MergeBase = "merge-base";
 		public const string RevParse = "rev-parse";
+	}
+
+	public static class InitFlags
+	{
+		public const string InitialBranch = "--initial-branch";
 	}
 }

@@ -22,5 +22,17 @@ public class GitRepoFixture
 
 		Git.Tag("1.0.0", "1.1.0", "1.1.0-alpha.1", "1.1.0-alpha.23", "1.1.1", "1.1.2", "1.1.3",
 				"1.1.4", "1.2.0", "1.2.1", "1.2.2", "1.2.3", "1.3.0", "1.3.1", "1.4.0-alpha.0");
+
+		var dev = Git.Branches.Dev;
+		Git.Branch(dev)
+			.Execute();
+
+		Git.Checkout(dev)
+			.Execute();
+
+		Git.Commit()
+			.WithMessage("empty")
+			.AllowEmpty()
+			.Execute();
 	}
 }
